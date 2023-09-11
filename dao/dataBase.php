@@ -43,7 +43,7 @@ class dataBase {
 
 		
 		if ($row!=null) {
-			$idretorno = $row['id'];
+			$idretorno = $row[0];
 		}
 		
 		return $idretorno;
@@ -74,28 +74,28 @@ class dataBase {
 		$escapeNatur = mysqli_real_escape_string($con, $PessoasDadosAdic->getNatur());
 		$escapeEstCiv = mysqli_real_escape_string($con, $PessoasDadosAdic->getEstCiv());
 		$escapeEscol = mysqli_real_escape_string($con, $PessoasDadosAdic->getEscol());
-		$escapeDataNasc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataNasc()->format("Y-m-d H:i:s"));
+		$escapeDataNasc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataNasc());
 		$escapeSituacao = mysqli_real_escape_string($con, $PessoasDadosAdic->getSituacao());
-		$escapeDataFalec = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataFalec()->format("Y-m-d H:i:s"));
+		$escapeDataFalec = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataFalec());
 		$escapeEmailPess = mysqli_real_escape_string($con, $PessoasDadosAdic->getEmailPess());
 		$escapeSexo = mysqli_real_escape_string($con, $PessoasDadosAdic->getSexo());
 		$escapeEmailBol = mysqli_real_escape_string($con, $PessoasDadosAdic->getEmailBol());
 		$escapeEmailAdic = mysqli_real_escape_string($con, $PessoasDadosAdic->getEmailAdic());
 		$escapeTratPess = mysqli_real_escape_string($con, $PessoasDadosAdic->getTratPess());
 		$escapeSocioCons = mysqli_real_escape_string($con, $PessoasDadosAdic->getSocioCons());
-		$escapeDataVinc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataVinc()->format("Y-m-d H:i:s"));
-		$escapeDataRetSit = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataRetSit()->format("Y-m-d H:i:s"));
+		$escapeDataVinc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataVinc());
+		$escapeDataRetSit = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataRetSit());
 		$escapeSitRet = mysqli_real_escape_string($con, $PessoasDadosAdic->getSitRet());
 		$escapeQuadro = mysqli_real_escape_string($con, $PessoasDadosAdic->getQuadro());
 		$escapeMatrOpc = mysqli_real_escape_string($con, $PessoasDadosAdic->getMatrOpc());
-		$escapeDataDesl = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataDesl()->format("Y-m-d H:i:s"));
+		$escapeDataDesl = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataDesl());
 		$escapeTermo = mysqli_real_escape_string($con, $PessoasDadosAdic->getTermo());
 		$escapeObs = mysqli_real_escape_string($con, $PessoasDadosAdic->getObs());
 		$escapeDataCadastro = mysqli_real_escape_string($con, $DT->format("Y-m-d H:i:s"));
 
 		$query = "INSERT INTO pessoa_dados_pessoais (id_pessoa, end_cep, end_logr, end_num, end_bair, end_ref, end_cid, end_est, tel1, tel2, tel3, tipo_doc, doc, rg, oe, nacio, natur, est_civ, escol, data_nasc, situacao, data_falec, email_pess, sexo, email_bol, email_adic, trat_pess, socio_cons, data_vinc, data_ret_sit, sit_ret, quadro, matr_opc, data_desl, termo, obs, data_cadastro) VALUES (
-		'$escapeIdPessoa', '$escapeEndCep', '$escapeEndLogr', '$escapeEndNum', '$escapeEndBair', '$escapeEndRef', '$escapeEndCid', '$escapeEndEst', '$escapeTel1', '$escapeTel2', '$escapeTel3', '$escapeTipoDoc', '$escapeDoc', '$escapeRg', '$escapeOe', '$escapeNacio', '$escapeNatur', '$escapeEstCiv', '$escapeEscol', '$escapeDataNasc', '$escapeSituacao', '$escapeDataFalec', '$escapeEmailPess', '$escapeSexo', '$escapeEmailBol', '$escapeEmailAdic', '$escapeTratPess', '$escapeSocioCons', '$escapeDataVinc', '$escapeDataRetSit', '$escapeSitRet', '$escapeQuadro', '$escapeMatrOpc', '$escapeDataDesl', '$escapeTermo', '$escapeObs', '$escapeDataCadastro', '$escapeDataCadastro')";
-		
+		'$escapeIdPessoa', '$escapeEndCep', '$escapeEndLogr', '$escapeEndNum', '$escapeEndBair', '$escapeEndRef', '$escapeEndCid', '$escapeEndEst', '$escapeTel1', '$escapeTel2', '$escapeTel3', '$escapeTipoDoc', '$escapeDoc', '$escapeRg', '$escapeOe', '$escapeNacio', '$escapeNatur', '$escapeEstCiv', '$escapeEscol', '$escapeDataNasc', '$escapeSituacao', '$escapeDataFalec', '$escapeEmailPess', '$escapeSexo', '$escapeEmailBol', '$escapeEmailAdic', '$escapeTratPess', '$escapeSocioCons', '$escapeDataVinc', '$escapeDataRetSit', '$escapeSitRet', '$escapeQuadro', '$escapeMatrOpc', '$escapeDataDesl', '$escapeTermo', '$escapeObs', '$escapeDataCadastro')";
+				
 		if (mysqli_query($con,$query)) {
 			$data[] = array(
 				'success' => '1'
@@ -136,21 +136,21 @@ class dataBase {
 		$escapeNatur = mysqli_real_escape_string($con, $PessoasDadosAdic->getNatur());
 		$escapeEstCiv = mysqli_real_escape_string($con, $PessoasDadosAdic->getEstCiv());
 		$escapeEscol = mysqli_real_escape_string($con, $PessoasDadosAdic->getEscol());
-		$escapeDataNasc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataNasc()->format("Y-m-d H:i:s"));
+		$escapeDataNasc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataNasc());
 		$escapeSituacao = mysqli_real_escape_string($con, $PessoasDadosAdic->getSituacao());
-		$escapeDataFalec = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataFalec()->format("Y-m-d H:i:s"));
+		$escapeDataFalec = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataFalec());
 		$escapeEmailPess = mysqli_real_escape_string($con, $PessoasDadosAdic->getEmailPess());
 		$escapeSexo = mysqli_real_escape_string($con, $PessoasDadosAdic->getSexo());
 		$escapeEmailBol = mysqli_real_escape_string($con, $PessoasDadosAdic->getEmailBol());
 		$escapeEmailAdic = mysqli_real_escape_string($con, $PessoasDadosAdic->getEmailAdic());
 		$escapeTratPess = mysqli_real_escape_string($con, $PessoasDadosAdic->getTratPess());
 		$escapeSocioCons = mysqli_real_escape_string($con, $PessoasDadosAdic->getSocioCons());
-		$escapeDataVinc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataVinc()->format("Y-m-d H:i:s"));
-		$escapeDataRetSit = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataRetSit()->format("Y-m-d H:i:s"));
+		$escapeDataVinc = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataVinc());
+		$escapeDataRetSit = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataRetSit());
 		$escapeSitRet = mysqli_real_escape_string($con, $PessoasDadosAdic->getSitRet());
 		$escapeQuadro = mysqli_real_escape_string($con, $PessoasDadosAdic->getQuadro());
 		$escapeMatrOpc = mysqli_real_escape_string($con, $PessoasDadosAdic->getMatrOpc());
-		$escapeDataDesl = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataDesl()->format("Y-m-d H:i:s"));
+		$escapeDataDesl = mysqli_real_escape_string($con, $PessoasDadosAdic->getDataDesl());
 		$escapeTermo = mysqli_real_escape_string($con, $PessoasDadosAdic->getTermo());
 		$escapeObs = mysqli_real_escape_string($con, $PessoasDadosAdic->getObs());
 		$escapeDataAtualizado = mysqli_real_escape_string($con, $DT->format("Y-m-d H:i:s"));
@@ -193,8 +193,7 @@ class dataBase {
 			obs='$escapeObs',
 			data_atualizado='$escapeDataAtualizado'
 			WHERE id='$escapeId'";
-
-
+			
 		if (mysqli_query($con,$query)) {
 			$data[] = array(
 				'success' => '1'
@@ -224,50 +223,50 @@ class dataBase {
 	
 			$res = mysqli_query($con,$query);
 			
-			$pessoasFisicas = array();
+			$pessoasFisicas[] = array();
 			
 			if (mysqli_query($con,$query)) {
 				while($row=mysqli_fetch_assoc($res)) 
 				{
-					$pessoasFisicas['id'] = $row['id'];
-					$pessoasFisicas['id_pessoa'] = $row['id_pessoa'];
-					$pessoasFisicas['end_cep'] = $row['end_cep'];
-					$pessoasFisicas['end_logr'] = $row['end_logr'];
-					$pessoasFisicas['end_num'] = $row['end_num'];
-					$pessoasFisicas['end_bair'] = $row['end_bair'];
-					$pessoasFisicas['end_ref'] = $row['end_ref'];
-					$pessoasFisicas['end_cid'] = $row['end_cid'];
-					$pessoasFisicas['end_est'] = $row['end_est'];
-					$pessoasFisicas['tel1'] = $row['tel1'];
-					$pessoasFisicas['tel2'] = $row['tel2'];
-					$pessoasFisicas['tel3'] = $row['tel3'];
-					$pessoasFisicas['tipo_doc'] = $row['tipo_doc'];
-					$pessoasFisicas['doc'] = $row['doc'];
-					$pessoasFisicas['rg'] = $row['rg'];
-					$pessoasFisicas['oe'] = $row['oe'];
-					$pessoasFisicas['nacio'] = $row['nacio'];
-					$pessoasFisicas['natur'] = $row['natur'];
-					$pessoasFisicas['est_civ'] = $row['est_civ'];
-					$pessoasFisicas['escol'] = $row['escol'];
-					$pessoasFisicas['data_nasc'] = $row['data_nasc'];
-					$pessoasFisicas['situacao'] = $row['situacao'];
-					$pessoasFisicas['data_falec'] = $row['data_falec'];
-					$pessoasFisicas['email_pess'] = $row['email_pess'];
-					$pessoasFisicas['sexo'] = $row['sexo'];
-					$pessoasFisicas['email_bol'] = $row['email_bol'];
-					$pessoasFisicas['email_adic'] = $row['email_adic'];
-					$pessoasFisicas['trat_pess'] = $row['trat_pess'];
-					$pessoasFisicas['socio_cons'] = $row['socio_cons'];
-					$pessoasFisicas['data_vinc'] = $row['data_vinc'];
-					$pessoasFisicas['data_ret_sit'] = $row['data_ret_sit'];
-					$pessoasFisicas['sit_ret'] = $row['sit_ret'];
-					$pessoasFisicas['quadro'] = $row['quadro'];
-					$pessoasFisicas['matr_opc'] = $row['matr_opc'];
-					$pessoasFisicas['data_desl'] = $row['data_desl'];
-					$pessoasFisicas['termo'] = $row['termo'];
-					$pessoasFisicas['obs'] = $row['obs'];
-					$pessoasFisicas['data_cadastro'] = $row['data_cadastro'];
-					$pessoasFisicas['data_atualizacao'] = $row['data_atualizacao'];
+					$pessoasFisicas[0]['id'] = $row['id'];
+					$pessoasFisicas[0]['id_pessoa'] = $row['id_pessoa'];
+					$pessoasFisicas[0]['end_cep'] = $row['end_cep'];
+					$pessoasFisicas[0]['end_logr'] = $row['end_logr'];
+					$pessoasFisicas[0]['end_num'] = $row['end_num'];
+					$pessoasFisicas[0]['end_bair'] = $row['end_bair'];
+					$pessoasFisicas[0]['end_ref'] = $row['end_ref'];
+					$pessoasFisicas[0]['end_cid'] = $row['end_cid'];
+					$pessoasFisicas[0]['end_est'] = $row['end_est'];
+					$pessoasFisicas[0]['tel1'] = $row['tel1'];
+					$pessoasFisicas[0]['tel2'] = $row['tel2'];
+					$pessoasFisicas[0]['tel3'] = $row['tel3'];
+					$pessoasFisicas[0]['tipo_doc'] = $row['tipo_doc'];
+					$pessoasFisicas[0]['doc'] = $row['doc'];
+					$pessoasFisicas[0]['rg'] = $row['rg'];
+					$pessoasFisicas[0]['oe'] = $row['oe'];
+					$pessoasFisicas[0]['nacio'] = $row['nacio'];
+					$pessoasFisicas[0]['natur'] = $row['natur'];
+					$pessoasFisicas[0]['est_civ'] = $row['est_civ'];
+					$pessoasFisicas[0]['escol'] = $row['escol'];
+					$pessoasFisicas[0]['data_nasc'] = $row['data_nasc'];
+					$pessoasFisicas[0]['situacao'] = $row['situacao'];
+					$pessoasFisicas[0]['data_falec'] = $row['data_falec'];
+					$pessoasFisicas[0]['email_pess'] = $row['email_pess'];
+					$pessoasFisicas[0]['sexo'] = $row['sexo'];
+					$pessoasFisicas[0]['email_bol'] = $row['email_bol'];
+					$pessoasFisicas[0]['email_adic'] = $row['email_adic'];
+					$pessoasFisicas[0]['trat_pess'] = $row['trat_pess'];
+					$pessoasFisicas[0]['socio_cons'] = $row['socio_cons'];
+					$pessoasFisicas[0]['data_vinc'] = $row['data_vinc'];
+					$pessoasFisicas[0]['data_ret_sit'] = $row['data_ret_sit'];
+					$pessoasFisicas[0]['sit_ret'] = $row['sit_ret'];
+					$pessoasFisicas[0]['quadro'] = $row['quadro'];
+					$pessoasFisicas[0]['matr_opc'] = $row['matr_opc'];
+					$pessoasFisicas[0]['data_desl'] = $row['data_desl'];
+					$pessoasFisicas[0]['termo'] = $row['termo'];
+					$pessoasFisicas[0]['obs'] = $row['obs'];
+					$pessoasFisicas[0]['data_cadastro'] = $row['data_cadastro'];
+					$pessoasFisicas[0]['data_atualizacao'] = $row['data_atualizacao'];
 				}		
 				
 				return $pessoasFisicas;		

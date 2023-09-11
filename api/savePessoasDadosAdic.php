@@ -11,39 +11,17 @@ require_once ( "../controllers/saveController.php" );
 if (isset($_POST["action"]))
 {
 	switch ($_POST["action"]){
-		
-		case 'get_header_pessoasCad':
-			
-			$form_data = array(
-				'idpessoa' => $_POST['fam1'],
-				'telfam1' => $_POST['telfam1'],
-				'fam2' => $_POST['fam2'],
-				'telfam2' => $_POST['telfam2'],
-				'medic' => $_POST['medic'],
-				'telmedic' => $_POST['telmedic'],
-				'conv' => $_POST['conv'],
-				'hosp' => $_POST['hosp'],
-				'obs' => $_POST['obs'],
-
-				'id' => $_POST['id_pessoasDadosAdic']	
-			);
-
-			$param = "?action=update_pessoasDadosAdic";				
-
-			echo saveController::update( $form_data, $param, $url_api );
-			break;
-		
 
 		case 'insert_pessoasDadosAdic':
 			
 			$form_data = array(
-				'end_cep' => $_POST['cep'],
-				'end_logr' => $_POST['logradouro'],
-				'end_num' => $_POST['numero'],
-				'end_bair' => $_POST['bairro'],
-				'end_ref' => $_POST['complemento'],
-				'end_cid' => $_POST['cidade'],
-				'end_est' => $_POST['uf'],
+				'end_cep' => $_POST['end_cep'],
+				'end_logr' => $_POST['end_logr'],
+				'end_num' => $_POST['end_num'],
+				'end_bair' => $_POST['end_bair'],
+				'end_ref' => $_POST['end_ref'],
+				'end_cid' => $_POST['end_cid'],
+				'end_est' => $_POST['end_est'],
 				'tel1' => $_POST['tel1'],
 				'tel2' => $_POST['tel2'],
 				'tel3' => $_POST['tel3'],
@@ -51,27 +29,28 @@ if (isset($_POST["action"]))
 				'doc' => $_POST['doc'],
 				'rg' => $_POST['rg'],
 				'oe' => $_POST['oe'],
-				'nacio' => $_POST['nacionalidade'],
-				'natur' => $_POST['naturalidade'],
-				'est_civ' => $_POST['estado_civil'],
-				'escol' => $_POST['escolaridade'],
+				'nacio' => $_POST['nacio'],
+				'natur' => $_POST['natur'],
+				'est_civ' => $_POST['est_civ'],
+				'escol' => $_POST['escol'],
 				'data_nasc' => $_POST['data_nasc'],
 				'situacao' => $_POST['situacao'],
 				'data_falec' => $_POST['data_falec'],
-				'email_pess' => $_POST['email_pessoal'],
+				'email_pess' => $_POST['email_pess'],
 				'sexo' => $_POST['sexo'],
 				'email_bol' => $_POST['email_bol'],
-				'email_adic' => $_POST['email_adicional'],
-				'trat_pess' => $_POST['tratamento_pessoal'],
-				'socio_cons' => $_POST['socio_consultor'],
-				'data_vinc' => $_POST['data_vinculo'],
-				'data_ret_sit' => $_POST['data_retorno_situacao'],
-				'sit_ret' => $_POST['situacao_retorno'],
+				'email_adic' => $_POST['email_adic'],
+				'trat_pess' => $_POST['trat_pess'],
+				'socio_cons' => $_POST['socio_cons'],
+				'data_vinc' => $_POST['data_vinc'],
+				'data_ret_sit' => $_POST['data_ret_sit'],
+				'sit_ret' => $_POST['sit_ret'],
 				'quadro' => $_POST['quadro'],
-				'matr_opc' => $_POST['matricula_opcional'],
-				'data_desl' => $_POST['data_desligamento'],
+				'matr_opc' => $_POST['matr_opc'],
+				'data_desl' => $_POST['data_desl'],
 				'termo' => $_POST['termo'],
-				'obs' => $_POST['observacao']
+				'obs' => $_POST['obs'],			
+				'id_pessoa' => $_POST['id_pessoaDadosAdic']
 			);
 						
 			$param = "?action=insert_pessoasDadosAdic";
@@ -81,13 +60,13 @@ if (isset($_POST["action"]))
 		case 'update_pessoasDadosAdic':
 			
 			$form_data = array(
-				'end_cep' => $_POST['cep'],
-				'end_logr' => $_POST['logradouro'],
-				'end_num' => $_POST['numero'],
-				'end_bair' => $_POST['bairro'],
-				'end_ref' => $_POST['complemento'],
-				'end_cid' => $_POST['cidade'],
-				'end_est' => $_POST['uf'],
+				'end_cep' => $_POST['end_cep'],
+				'end_logr' => $_POST['end_logr'],
+				'end_num' => $_POST['end_num'],
+				'end_bair' => $_POST['end_bair'],
+				'end_ref' => $_POST['end_ref'],
+				'end_cid' => $_POST['end_cid'],
+				'end_est' => $_POST['end_est'],
 				'tel1' => $_POST['tel1'],
 				'tel2' => $_POST['tel2'],
 				'tel3' => $_POST['tel3'],
@@ -95,30 +74,28 @@ if (isset($_POST["action"]))
 				'doc' => $_POST['doc'],
 				'rg' => $_POST['rg'],
 				'oe' => $_POST['oe'],
-				'nacio' => $_POST['nacionalidade'],
-				'natur' => $_POST['naturalidade'],
-				'est_civ' => $_POST['estado_civil'],
-				'escol' => $_POST['escolaridade'],
+				'nacio' => $_POST['nacio'],
+				'natur' => $_POST['natur'],
+				'est_civ' => $_POST['est_civ'],
+				'escol' => $_POST['escol'],
 				'data_nasc' => $_POST['data_nasc'],
 				'situacao' => $_POST['situacao'],
 				'data_falec' => $_POST['data_falec'],
-				'email_pess' => $_POST['email_pessoal'],
+				'email_pess' => $_POST['email_pess'],
 				'sexo' => $_POST['sexo'],
 				'email_bol' => $_POST['email_bol'],
-				'email_adic' => $_POST['email_adicional'],
-				'trat_pess' => $_POST['tratamento_pessoal'],
-				'socio_cons' => $_POST['socio_consultor'],
-				'data_vinc' => $_POST['data_vinculo'],
-				'data_ret_sit' => $_POST['data_retorno_situacao'],
-				'sit_ret' => $_POST['situacao_retorno'],
+				'email_adic' => $_POST['email_adic'],
+				'trat_pess' => $_POST['trat_pess'],
+				'socio_cons' => $_POST['socio_cons'],
+				'data_vinc' => $_POST['data_vinc'],
+				'data_ret_sit' => $_POST['data_ret_sit'],
+				'sit_ret' => $_POST['sit_ret'],
 				'quadro' => $_POST['quadro'],
-				'matr_opc' => $_POST['matricula_opcional'],
-				'data_desl' => $_POST['data_desligamento'],
+				'matr_opc' => $_POST['matr_opc'],
+				'data_desl' => $_POST['data_desl'],
 				'termo' => $_POST['termo'],
-				'obs' => $_POST['observacao'],
-
-				'id_pessoa' => $_POST['id_pessoaDadosAdic'],
-				'id' => $_POST['id_pessoaDadosAdic']
+				'obs' => $_POST['obs'],			
+				'id' => $_POST['id_DadosAdic']
 			);
 						
 			$param = "?action=update_pessoasDadosAdic";				

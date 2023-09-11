@@ -203,7 +203,7 @@ class PessoasDadosAdic {
         $this->escol = $escol;
     }
 
-    public function getDataNasc(): ?DateTimeInterface {
+    public function getDataNasc(): string {
         return $this->data_nasc;
     }
 
@@ -219,7 +219,7 @@ class PessoasDadosAdic {
         $this->situacao = $situacao;
     }
 
-    public function getDataFalec(): ?DateTimeInterface {
+    public function getDataFalec(): ?string {
         return $this->data_falec;
     }
 
@@ -275,7 +275,7 @@ class PessoasDadosAdic {
         $this->socio_cons = $socio_cons;
     }
 
-    public function getDataVinc(): ?DateTimeInterface {
+    public function getDataVinc(): ?string {
         return $this->data_vinc;
     }
 
@@ -283,7 +283,7 @@ class PessoasDadosAdic {
         $this->data_vinc = $data_vinc;
     }
 
-    public function getDataRetSit(): ?DateTimeInterface {
+    public function getDataRetSit(): ?string {
         return $this->data_ret_sit;
     }
 
@@ -307,7 +307,7 @@ class PessoasDadosAdic {
         $this->quadro = $quadro;
     }
 
-    public function getMatrOpc(): ?int {
+    public function getMatrOpc(): ?string {
         return $this->matr_opc;
     }
 
@@ -315,7 +315,7 @@ class PessoasDadosAdic {
         $this->matr_opc = $matr_opc;
     }
 
-    public function getDataDesl(): ?DateTimeInterface {
+    public function getDataDesl(): ?string {
         return $this->data_desl;
     }
 
@@ -343,7 +343,7 @@ class PessoasDadosAdic {
 		$this->data_cadastro = $data_cadastro;
 	}
 	
-	public function getDatacadastro():DateTimeInterface {
+	public function getDatacadastro(): DateTimeInterface {
 		return $this->data_cadastro;		
 	}
 	
@@ -351,7 +351,7 @@ class PessoasDadosAdic {
 		$this->data_atualizado = $data_atualizado;
 	}
 	
-	public function getDataatualizado():DateTimeInterface {
+	public function getDataatualizado(): DateTimeInterface {
 		return $this->data_atualizado;		
 	}
 

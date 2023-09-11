@@ -30,7 +30,7 @@ switch ($_GET['action']) {
 	case 'insert_pessoasDadosAdic':
 
 		$PessoasDadosAdic->setIdpessoa(trim($_POST['id_pessoa']));
-		$PessoasDadosAdic->setEndCep(trim($_POST['end_cep']));
+		$PessoasDadosAdic->setEndCep(preg_replace('/\D/', '', $_POST['end_cep']));
 		$PessoasDadosAdic->setEndLogr(trim($_POST['end_logr']));
 		$PessoasDadosAdic->setEndNum(trim($_POST['end_num']));
 		$PessoasDadosAdic->setEndBair(trim($_POST['end_bair']));
@@ -41,28 +41,28 @@ switch ($_GET['action']) {
 		$PessoasDadosAdic->setTel2(preg_replace('/\D/', '', $_POST['tel2']));
 		$PessoasDadosAdic->setTel3(preg_replace('/\D/', '', $_POST['tel3']));
 		$PessoasDadosAdic->setTipoDoc(trim($_POST['tipo_doc']));
-		$PessoasDadosAdic->setDoc(trim($_POST['doc']));
+		$PessoasDadosAdic->setDoc(preg_replace('/\D/', '', $_POST['doc']));
 		$PessoasDadosAdic->setRg(trim($_POST['rg']));
 		$PessoasDadosAdic->setOe(trim($_POST['oe']));
 		$PessoasDadosAdic->setNacio(trim($_POST['nacio']));
 		$PessoasDadosAdic->setNatur(trim($_POST['natur']));
 		$PessoasDadosAdic->setEstCiv(trim($_POST['est_civ']));
 		$PessoasDadosAdic->setEscol(trim($_POST['escol']));
-		$PessoasDadosAdic->setDataNasc(trim($_POST['data_nasc']));
+		$PessoasDadosAdic->setDataNasc($_POST['data_nasc']);
 		$PessoasDadosAdic->setSituacao(trim($_POST['situacao']));
-		$PessoasDadosAdic->setDataFalec(trim($_POST['data_falec']));
+		$PessoasDadosAdic->setDataFalec($_POST['data_falec']);
 		$PessoasDadosAdic->setEmailPess(trim($_POST['email_pess']));
 		$PessoasDadosAdic->setSexo(trim($_POST['sexo']));
 		$PessoasDadosAdic->setEmailBol(trim($_POST['email_bol']));
 		$PessoasDadosAdic->setEmailAdic(trim($_POST['email_adic']));
 		$PessoasDadosAdic->setTratPess(trim($_POST['trat_pess']));
 		$PessoasDadosAdic->setSocioCons(trim($_POST['socio_cons']));
-		$PessoasDadosAdic->setDataVinc(trim($_POST['data_vinc']));
-		$PessoasDadosAdic->setDataRetSit(trim($_POST['data_ret_sit']));
+		$PessoasDadosAdic->setDataVinc($_POST['data_vinc']);
+		$PessoasDadosAdic->setDataRetSit($_POST['data_ret_sit']);
 		$PessoasDadosAdic->setSitRet(trim($_POST['sit_ret']));
 		$PessoasDadosAdic->setQuadro(trim($_POST['quadro']));
 		$PessoasDadosAdic->setMatrOpc(trim($_POST['matr_opc']));
-		$PessoasDadosAdic->setDataDesl(trim($_POST['data_desl']));
+		$PessoasDadosAdic->setDataDesl($_POST['data_desl']);
 		$PessoasDadosAdic->setTermo(trim($_POST['termo']));
 		$PessoasDadosAdic->setObs(trim($_POST['obs']));
 	
@@ -72,8 +72,7 @@ switch ($_GET['action']) {
 
 	case 'update_pessoasDadosAdic':
 
-		$PessoasDadosAdic->setIdpessoa(trim($_POST['id_pessoa']));
-		$PessoasDadosAdic->setEndCep(trim($_POST['end_cep']));
+		$PessoasDadosAdic->setEndCep(preg_replace('/\D/', '', $_POST['end_cep']));
 		$PessoasDadosAdic->setEndLogr(trim($_POST['end_logr']));
 		$PessoasDadosAdic->setEndNum(trim($_POST['end_num']));
 		$PessoasDadosAdic->setEndBair(trim($_POST['end_bair']));
@@ -84,28 +83,28 @@ switch ($_GET['action']) {
 		$PessoasDadosAdic->setTel2(preg_replace('/\D/', '', $_POST['tel2']));
 		$PessoasDadosAdic->setTel3(preg_replace('/\D/', '', $_POST['tel3']));
 		$PessoasDadosAdic->setTipoDoc(trim($_POST['tipo_doc']));
-		$PessoasDadosAdic->setDoc(trim($_POST['doc']));
+		$PessoasDadosAdic->setDoc(preg_replace('/\D/', '', $_POST['doc']));
 		$PessoasDadosAdic->setRg(trim($_POST['rg']));
 		$PessoasDadosAdic->setOe(trim($_POST['oe']));
 		$PessoasDadosAdic->setNacio(trim($_POST['nacio']));
 		$PessoasDadosAdic->setNatur(trim($_POST['natur']));
 		$PessoasDadosAdic->setEstCiv(trim($_POST['est_civ']));
 		$PessoasDadosAdic->setEscol(trim($_POST['escol']));
-		$PessoasDadosAdic->setDataNasc(trim($_POST['data_nasc']));
+		$PessoasDadosAdic->setDataNasc($_POST['data_nasc']);
 		$PessoasDadosAdic->setSituacao(trim($_POST['situacao']));
-		$PessoasDadosAdic->setDataFalec(trim($_POST['data_falec']));
+		$PessoasDadosAdic->setDataFalec($_POST['data_falec']);
 		$PessoasDadosAdic->setEmailPess(trim($_POST['email_pess']));
 		$PessoasDadosAdic->setSexo(trim($_POST['sexo']));
 		$PessoasDadosAdic->setEmailBol(trim($_POST['email_bol']));
 		$PessoasDadosAdic->setEmailAdic(trim($_POST['email_adic']));
 		$PessoasDadosAdic->setTratPess(trim($_POST['trat_pess']));
 		$PessoasDadosAdic->setSocioCons(trim($_POST['socio_cons']));
-		$PessoasDadosAdic->setDataVinc(trim($_POST['data_vinc']));
-		$PessoasDadosAdic->setDataRetSit(trim($_POST['data_ret_sit']));
+		$PessoasDadosAdic->setDataVinc($_POST['data_vinc']);
+		$PessoasDadosAdic->setDataRetSit($_POST['data_ret_sit']);
 		$PessoasDadosAdic->setSitRet(trim($_POST['sit_ret']));
 		$PessoasDadosAdic->setQuadro(trim($_POST['quadro']));
 		$PessoasDadosAdic->setMatrOpc(trim($_POST['matr_opc']));
-		$PessoasDadosAdic->setDataDesl(trim($_POST['data_desl']));
+		$PessoasDadosAdic->setDataDesl($_POST['data_desl']);
 		$PessoasDadosAdic->setTermo(trim($_POST['termo']));
 		$PessoasDadosAdic->setObs(trim($_POST['obs']));
 	

@@ -45,7 +45,7 @@
 						<div class="row mb-3">
 							<div class="col-md-3">
 								<label for="end_cep" class="form-label"><b>CEP:</b></label>
-								<input type="text" class="form-control" name="end_cep" id="end_cep" required autofocus>
+								<input type="text" class="form-control" name="end_cep" id="end_cep" value="13456082" required autofocus>
 							</div>
 							<div class="col-md-9">
 								<label for="end_logr" class="form-label"><b>Logradouro:</b></label>
@@ -55,7 +55,7 @@
 						<div class="row mb-3">
 							<div class="col-md-2">
 								<label for="end_num" class="form-label"><b>Número:</b></label>
-								<input type="text" class="form-control" name="end_num" id="end_num" maxlength="6" required>
+								<input type="text" class="form-control" name="end_num" id="end_num" maxlength="6" value="12345" required>
 							</div>
 							<div class="col-md-5">
 								<label for="end_ref" class="form-label">Referência:</label>
@@ -109,13 +109,13 @@
 					<div class="col-lg-2">
 						<label for="tipo_doc" class="form-label"><b>CPF/CNPJ:</b></label>
 						<select class="form-control" name="tipo_doc" id="tipo_doc" required>
-							<option value="cpf">CPF</option>
+							<option value="cpf" selected>CPF</option>
 							<option value="cnpj">CNPJ</option>
 						</select>
 					</div>
 					<div class="col-lg-3">
 						<label for="doc" class="form-label" id="lbldoc"><b>CPF:</b></label>
-						<input type="text" class="form-control" name="doc" id="doc" required>
+						<input type="text" class="form-control" name="doc" id="doc" value="123456789123456789" required>
 					</div>
 					<div class="col-lg-2">
 						<label for="rg" class="form-label">RG:</label>
@@ -145,7 +145,7 @@
 					</div>
 					<div class="col-lg-2">
 						<label for="data_nasc" class="form-label"><b>Data de Nascimento:</b></label>
-						<input type="date" class="form-control" name="data_nasc" id="data_nasc" required>
+						<input type="date" class="form-control" name="data_nasc" id="data_nasc" value="1995-03-22" required>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -158,12 +158,12 @@
 						<input type="date" class="form-control" name="data_falec" id="data_falec">
 					</div>
 					<div class="col-lg-5">
-						<label for="email" class="form-label">Email pessoal <b>(Email pessoal deve ser único)</b>:</label>
-						<input type="email" class="form-control" name="email" id="email" maxlength="100">
+						<label for="email_pess" class="form-label">Email pessoal <b>(Email pessoal deve ser único)</b>:</label>
+						<input type="email" class="form-control" name="email_pess" id="email_pess" maxlength="100">
 					</div>
 					<div class="col-lg-2">
 						<label for="sexo" class="form-label"><b>Sexo(M/F):</b></label>
-						<input type="text" class="form-control" name="sexo" id="sexo" maxlength="1" required>
+						<input type="text" class="form-control" name="sexo" id="sexo" maxlength="1" value="M" required>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -207,7 +207,7 @@
 					</div>
 					<div class="col-lg-2">
 						<label for="matric_opc" class="form-label">Matrícula Opc:</label>
-						<input type="text" class="form-control" name="matric_opc" id="matric_opc">
+						<input type="text" class="form-control" name="matr_opc" id="matric_opc">
 					</div>
 					<div class="col-lg-2">
 						<label for="data_desl" class="form-label">Data Desligamento:</label>
@@ -225,7 +225,7 @@
 					</div>
 				</div>
 
-				<input type="hidden" name="id_contEmerg" id="id_dadosAdic">
+				<input type="hidden" name="id_dadosAdic" id="id_dadosAdic">
 				<input type="hidden" name="id_pessoaDadosAdic" id="id_pessoaDadosAdic" value="<?=$idpessoa?>">
 				<input type="hidden" name="action" id="action" value="insert_pessoasDadosAdic">
 
