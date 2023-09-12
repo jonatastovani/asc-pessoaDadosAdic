@@ -56,6 +56,7 @@ if (isset($_POST["action"]))
 			$param = "?action=insert_pessoasDadosAdic";
 
 			echo saveController::add( $form_data, $param, $url_api );
+			break;
 
 		case 'update_pessoasDadosAdic':
 			
@@ -94,8 +95,10 @@ if (isset($_POST["action"]))
 				'matr_opc' => $_POST['matr_opc'],
 				'data_desl' => $_POST['data_desl'],
 				'termo' => $_POST['termo'],
-				'obs' => $_POST['obs'],			
-				'id' => $_POST['id_DadosAdic']
+				'obs' => $_POST['obs'],
+
+				'id_pessoa' => $_POST['id_pessoaDadosAdic'],
+				'id' => $_POST['id_dadosAdic']
 			);
 						
 			$param = "?action=update_pessoasDadosAdic";				
@@ -109,6 +112,28 @@ if (isset($_POST["action"]))
 
 			echo saveController::getOne( $id, $param, $url_api );
 			break;
+
+		case 'docPessoasDadosAdic_one':
+			$doc = $_POST["doc"];	
+			$param = "?action=docPessoasDadosAdic_one&doc=".$doc."";		
+	
+			echo saveController::getForValidation( $doc, $param, $url_api );		
+			break;
+
+		case 'idPessoaPessoasDadosAdic_one':
+			$idPessoa = $_POST["id_pessoa"];
+			$param = "?action=idPessoaPessoasDadosAdic_one&id_pessoa=".$idPessoa."";		
+	
+			echo saveController::getForValidation( $idPessoa, $param, $url_api );		
+			break;
+
+		case 'emailPessoasDadosAdic_one':
+			$emailPess = $_POST["email_pess"];	
+			$param = "?action=emailPessoasDadosAdic_one&email_pess=".$emailPess."";		
+
+			echo saveController::getForValidation( $emailPess, $param, $url_api );		
+			break;
+
 	}
 
 }

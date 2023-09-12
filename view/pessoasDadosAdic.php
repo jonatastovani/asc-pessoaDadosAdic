@@ -1,5 +1,5 @@
 <?php
-	$_POST['id_pessoaDadosAdic'] = 1;
+	$_POST['id_pessoaDadosAdic'] = 2;
 	$idpessoa = isset($_POST['id_pessoaDadosAdic'])?$_POST['id_pessoaDadosAdic']:0;
 ?>
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
 						<div class="row mb-3">
 							<div class="col-md-3">
 								<label for="end_cep" class="form-label"><b>CEP:</b></label>
-								<input type="text" class="form-control" name="end_cep" id="end_cep" value="13456082" required autofocus>
+								<input type="text" class="form-control" name="end_cep" id="end_cep" required autofocus>
 							</div>
 							<div class="col-md-9">
 								<label for="end_logr" class="form-label"><b>Logradouro:</b></label>
@@ -99,7 +99,7 @@
 								</div>
 							</div>
 							<div class="col-md-12 mt-3">
-								<button class="btn btn-primary me-2">Selecionar</button>
+								<button class="btn btn-primary me-2" id="select_photo">Selecionar</button>
 								<button class="btn btn-danger">Remover</button>
 							</div>
 						</div>
@@ -114,7 +114,7 @@
 						</select>
 					</div>
 					<div class="col-lg-3">
-						<label for="doc" class="form-label" id="lbldoc"><b>CPF:</b></label>
+						<label for="doc" class="form-label"><b><span id="lbldoc">CPF:</span></b></label>
 						<input type="text" class="form-control" name="doc" id="doc" value="123456789123456789" required>
 					</div>
 					<div class="col-lg-2">
@@ -207,7 +207,7 @@
 					</div>
 					<div class="col-lg-2">
 						<label for="matric_opc" class="form-label">Matrícula Opc:</label>
-						<input type="text" class="form-control" name="matr_opc" id="matric_opc">
+						<input type="text" class="form-control" name="matr_opc" id="matr_opc">
 					</div>
 					<div class="col-lg-2">
 						<label for="data_desl" class="form-label">Data Desligamento:</label>

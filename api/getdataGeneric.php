@@ -108,7 +108,8 @@ switch ($_GET['action']) {
 		$PessoasDadosAdic->setTermo(trim($_POST['termo']));
 		$PessoasDadosAdic->setObs(trim($_POST['obs']));
 	
-		$id = $PessoasDadosAdic->setId($_POST['id']);
+		$PessoasDadosAdic->setIdpessoa(trim($_POST['id_pessoa']));
+		$PessoasDadosAdic->setId($_POST['id']);
 	
 		$res = $data->alterPessoasDadosAdic( $PessoasDadosAdic );
 		
@@ -120,6 +121,23 @@ switch ($_GET['action']) {
 
 		break;
 
+	case 'docPessoasDadosAdic_one':
+		$doc = $PessoasDadosAdic->setDoc(preg_replace('/\D/', '',$_GET["doc"]));	
+		$res = $data->docPessoasDadosAdic_one( $PessoasDadosAdic );
+	
+		break;
+
+	case 'idPessoaPessoasDadosAdic_one':
+		$idPessoa = $PessoasDadosAdic->setIdPessoa(preg_replace('/\D/', '',$_GET["id_pessoa"]));	
+		$res = $data->idPessoaPessoasDadosAdic_one( $PessoasDadosAdic );
+
+		break;
+
+	case 'emailPessoasDadosAdic_one':
+		$email = $PessoasDadosAdic->setEmailPess(trim($_GET["email_pess"]));	
+		$res = $data->emailPessPessoasDadosAdic_one( $PessoasDadosAdic );
+	
+		break;
 
 }
 

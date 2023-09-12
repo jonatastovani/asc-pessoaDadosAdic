@@ -13,13 +13,6 @@ $(document).ready(function(){
         $('#form1').attr('hidden', 'hidden');
     }
 
-    function Reset() {
-
-        $('#form1')[0].reset();
-        $('#end_cep')[0].focus();
-
-    }
-    
     function getData(type, param) {
 
         $.ajax({
@@ -59,32 +52,32 @@ $(document).ready(function(){
             method:"POST",
             data:{id:idpessoa,action:action},
             dataType:"json",
+            async: false,
             success:function(data) {
                 
-                console.log(data);
                 if (data[0].success) {
                     iddadosadic = null;
                     $('#id_dadosAdic').val('');
                     $('#action').val('insert_pessoasDadosAdic');
                 
                 } else {
-                    console.log("entrou no segundo")
+                
                     iddadosadic = data[0].id;
                     $('#id_dadosAdic').val(data[0].id);
                     $('#action').val('update_pessoasDadosAdic');
 
-                    $('#end_cep').val(data[0].end_cep).trigger('change');
+                    $('#end_cep').val(data[0].end_cep);
                     $('#end_logr').val(data[0].end_logr);
                     $('#end_num').val(data[0].end_num);
                     $('#end_ref').val(data[0].end_ref);
                     $('#end_bair').val(data[0].end_bair);
                     $('#end_cid').val(data[0].end_cid);
                     $('#end_est').val(data[0].end_est);
-                    $('#tel1').val(data[0].tel1).trigger('blur');
-                    $('#tel2').val(data[0].tel2).trigger('blur');
-                    $('#tel3').val(data[0].tel3).trigger('blur');
-                    $('#tipo_doc').val(data[0].tipo_doc).trigger('change');
+                    $('#tel1').val(data[0].tel1);
+                    $('#tel2').val(data[0].tel2);
+                    $('#tel3').val(data[0].tel3);
                     $('#doc').val(data[0].doc);
+                    $('#tipo_doc').val(data[0].tipo_doc);
                     $('#rg').val(data[0].rg);
                     $('#oe').val(data[0].oe);
                     $('#nacio').val(data[0].nacio);
@@ -94,7 +87,7 @@ $(document).ready(function(){
                     $('#data_nasc').val(data[0].data_nasc);
                     $('#situacao').val(data[0].situacao);
                     $('#data_falec').val(data[0].data_falec!='0000-00-00'?data[0].data_falec:'');
-                    $('#email').val(data[0].email);
+                    $('#email_pess').val(data[0].email_pess);
                     $('#sexo').val(data[0].sexo);
                     $('#email_bol').val(data[0].email_bol);
                     $('#email_adic').val(data[0].email_adic);
@@ -104,13 +97,12 @@ $(document).ready(function(){
                     $('#data_ret_sit').val(data[0].data_ret_sit!='0000-00-00'?data[0].data_ret_sit:'');
                     $('#sit_ret').val(data[0].sit_ret);
                     $('#quadro').val(data[0].quadro);
-                    $('#matric_opc').val(data[0].matric_opc);
+                    $('#matr_opc').val(data[0].matr_opc);
                     $('#data_desl').val(data[0].data_desl!='0000-00-00'?data[0].data_desl:'');
                     $('#termo').val(data[0].termo);
                     $('#obs').val(data[0].obs);
 
-                    $('#end_cep').mask('00.000-000');
-
+                    executeMask();
                 }
 
             },
@@ -119,21 +111,16 @@ $(document).ready(function(){
                 console.log(result);					
             }
         });
+
     }
 
-    $(document).on('click', '#cancel', function(){
-        
-        Reset();
-
-    });
-    
     $('#form1').on('submit', function(event){
         event.preventDefault();			
         
-        // let verifica = verificacoes();
-        // if (verifica != true) {
-        //     return alert(verifica);
-        // }
+        let verifica = verificacoes();
+        if (verifica != true) {
+            return alert(verifica);
+        }
 
         const camposDesabled = $(this).find('.grupoCEP');
         camposDesabled.prop('disabled', false);
@@ -147,64 +134,180 @@ $(document).ready(function(){
             data:form1,
             success:function(data)
             {
-                
+                console.log(data);
+
                 if (data === 'error2') {
                     alert("Os dados enviados já encontram-se cadastrados no nosso Banco de Dados! Revise as informações ou edite o cadastro existente.");
+                } else if (data === 'insert') {
+                    alert("Dados inseridos!");
+
                 } else if (data === 'update') {
                     alert("Dados atualizados!");
                 }
-
             }
         });				
         
     });
-    
-    
-    // function verificacoes() {
-    //     let arrMensagens = [];
-
-
-
-    //     let strMensagem='';
-    //     if(arrMensagens.length)
-    //         strMensagem = 'Algumas coisas precisam ser resolvidas antes de prosseguir-mos:\n';
-    //         arrMensagens.forEach(mensagem => {
-    //             strMensagem += `\n${mensagem}`;
-    //         });
         
-    //     return strMensagem!=''?strMensagem:true;
+    function verificacoes() {
+        let arrMensagens = [];
+
+        let arrData = {
+            action: 'idPessoaPessoasDadosAdic_one',
+            key: 'id_pessoa',
+            value: idpessoa,
+            id: $('#action').val()=='update_pessoasDadosAdic'?idpessoa:null
+        }
+        if (verificaDadosDuplicados(arrData)!=false) {
+            arrMensagens.push('Já consta em nossos cadastros dados pessoais da pessoa em tela. Atualize a página e altere as informações caso seja necessário.')
+        }
+            
+        arrData = {
+            action: 'docPessoasDadosAdic_one',
+            key: 'doc',
+            value: $('#doc').val(),
+            id: $('#action').val()=='update_pessoasDadosAdic'?idpessoa:null
+        }
+
+        if (verificaDadosDuplicados(arrData)!=false) {
+            arrMensagens.push('O documento '+$('#lbldoc').html()+' informado já consta em nossos cadastros.')
+        }
+            
+        arrData = {
+            action: 'emailPessoasDadosAdic_one',
+            key: 'email_pess',
+            value: $('#email_pess').val(),
+            id: $('#action').val()=='update_pessoasDadosAdic'?idpessoa:null
+        }
+
+        if (verificaDadosDuplicados(arrData)!=false) {
+            arrMensagens.push('O email informado já consta em nossos cadastros.')
+        }
+            
+        let conteudoVerificar = $('#doc').val().replace(/\D/g, '');
+        if ($('#tipo_doc').val()=='cpf') {
+            if(conteudoVerificar.length!=11 || validaCPF(conteudoVerificar)!==true) {
+                arrMensagens.push('O CPF informado está incorreto.');
+            }
+        } else if ($('#tipo_doc').val()=='cnpj') {
+            if(conteudoVerificar.length!=14 || validaCNPJ(conteudoVerificar)!==true) {
+                arrMensagens.push('O CNPJ informado está incorreto.');
+            }
+        }
         
-    // }
+        conteudoVerificar = $('#end_cep').val().replace(/\D/g, '');
+        if(conteudoVerificar.length!=8) {
+            arrMensagens.push('O CEP informado está incompleto.');
+        }
+
+        let strMensagem='';
+        if(arrMensagens.length)
+            strMensagem = 'Algumas coisas precisam ser resolvidas antes de prosseguir-mos:\r';
+            arrMensagens.forEach(mensagem => {
+                strMensagem += `\r${mensagem}`;
+            });
+        
+        return strMensagem!=''?strMensagem:true;
+        
+    }
+
+    function verificaDadosDuplicados(arrParams){
+        let id = null;
+        if(arrParams.id){
+            id = arrParams.id;
+        }
+        console.log(arrParams);
+
+        let arrdata = {
+            action: arrParams.action
+        }
+        arrdata[arrParams.key] = arrParams.value;
+        
+
+        let retorno = true;
+
+        $.ajax({
+            url:"../api/savePessoasDadosAdic.php",
+            method:"POST",
+            data:arrdata,
+            dataType:"json",
+            async: false,
+            success:function(data)
+            {
+                console.log(data)
+                console.log(data.length)
+                if (data.length>0) {
+                    console.log('entrou 1')
+                    if (id!=null && data.id == id){
+                        console.log('entrou 2')
+                        retorno = false;
+                    }
+                }else {
+                    retorno = false;
+                }
+            },
+            error: function(result) {
+                console.log(result);					
+                retorno = true;
+            }
+        });
+
+        return retorno;
+    }
 
     $('.clstelefone').on('blur', function(){
         mascaraTelefone($(this).val(),'#'+this.id);
     })
    
-    $('#tipo_doc').on('change', function(){
-        if ($('#tipo_doc').val()=='cpf') {
-            $('#doc').mask('000.000.000-00');
-        } else if ($('#tipo_doc').val()=='cnpj') {
-            $('#doc').mask('00.000.000/0000-00');
-        }
+    $('#end_cep').on('blur', function(){
+
+        mascaraCep('#'+this.id);
+        
     })
    
     $('#end_cep').on('change', function() {
-        if (this.value.length==10) {
+        
+        if (this.value.replace(/\D/g, '').length==8) {
             buscandoCEP(this.value);
-            console.log('Entrou consulta')
         } else {
             buscandoCEP(null);
         }
+
     });
 
+    $('#doc').on('blur', function(){
+
+        if ($('#tipo_doc').val()=='cpf') {
+            mascaraCPF('#'+this.id);
+            $('#lbldoc').html('CPF:');
+        } else if ($('#tipo_doc').val()=='cnpj') {
+            mascaraCNPJ('#'+this.id);
+            $('#lbldoc').html('CNPJ:');
+        }
+        
+    })
+
+    $('#tipo_doc').on('change', function(){
+
+        $('#doc').blur();
+
+    })
+   
+    function executeMask() {
+        $('#doc').trigger('blur');
+        $('#end_cep').trigger('blur');
+        $('#end_cep').trigger('change');
+        $('.clstelefone').trigger('blur');
+    }
+
     function buscandoCEP (cep=null) {
-        if (cep==null || cep.length!=10){
+        if (cep==null || cep.replace(/\D/g, '').length!=8){
             habilitaCamposSeletor(true,'.grupoCEP');
             return;
         }
         
         let consulta = buscarCEP(cep);
-        // console.log(consulta);
+        console.log(consulta);
         if (typeof consulta === 'object' && !Array.isArray(consulta)) {
             let elementoFoco = $('#end_logr').val().length==0 || 
                 $('#end_logr').val()!=consulta.logradouro?'#end_num':'#tel1';
@@ -222,7 +325,7 @@ $(document).ready(function(){
         }
     }
 
-    $('#end_cep').mask('00.000-000');
     $('#tipo_doc').trigger('change');
-    
+
+    executeMask();
 });
