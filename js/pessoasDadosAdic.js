@@ -126,15 +126,12 @@ $(document).ready(function(){
         camposDesabled.prop('disabled', false);
         var form1 = $(this).serialize();
         camposDesabled.prop('disabled', true);
-        console.log(form1)
 
         $.ajax({
             url: "../api/savePessoasDadosAdic.php",
             method:"POST",
             data:form1,
-            success:function(data)
-            {
-                console.log(data);
+            success:function(data) {
 
                 if (data === 'error2') {
                     alert("Os dados enviados já encontram-se cadastrados no nosso Banco de Dados! Revise as informações ou edite o cadastro existente.");
@@ -216,8 +213,7 @@ $(document).ready(function(){
         if(arrParams.id){
             id = arrParams.id;
         }
-        console.log(arrParams);
-
+        
         let arrdata = {
             action: arrParams.action
         }
@@ -307,7 +303,7 @@ $(document).ready(function(){
         }
         
         let consulta = buscarCEP(cep);
-        console.log(consulta);
+
         if (typeof consulta === 'object' && !Array.isArray(consulta)) {
             let elementoFoco = $('#end_logr').val().length==0 || 
                 $('#end_logr').val()!=consulta.logradouro?'#end_num':'#tel1';
@@ -325,7 +321,13 @@ $(document).ready(function(){
         }
     }
 
+    $('#select_photo').on('click', function(){
+        openPopPhoto();
+    });
+
     $('#tipo_doc').trigger('change');
 
     executeMask();
+
 });
+

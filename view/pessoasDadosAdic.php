@@ -10,7 +10,7 @@
 		<title>Test</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
+		<link rel="stylesheet" href="../css/popup-style.css">
 	</head>
 	
 	<body>
@@ -101,6 +101,7 @@
 							<div class="col-md-12 mt-3">
 								<button class="btn btn-primary me-2" id="select_photo">Selecionar</button>
 								<button class="btn btn-danger">Remover</button>
+								<input type="file" id="uploader" hidden accept="image/jpeg,image/png"><br><br>
 							</div>
 						</div>
 					</div>
@@ -247,6 +248,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 		<!-- <script src="../js/jquery.mask.min.js"></script> -->
 
+		
+		<?php include_once ("popupPhotos.php"); ?>
+		
 		<script src="../js/buscaCEP.js"></script>
 		<script src="../js/common_functions.js"></script>
 		<script src="../js/pessoasDadosAdic.js"></script>
