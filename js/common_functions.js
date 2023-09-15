@@ -91,3 +91,46 @@ function habilitaCamposSeletor (status, seletor) {
         elementos.attr('disabled','disabled');
     }
 }
+
+function buscaFoto(url, seletor, urlSemFoto='../img/sem-foto.png') {
+    const extensions = ['jpg', 'jpeg', 'png'];
+    let foundExtension = null;
+
+    const urlParts = url.split('.');
+    if (urlParts.length > 1) {
+        const lastPart = urlParts[urlParts.length - 1];
+        if (extensions.includes(lastPart.toLowerCase())) {
+            foundExtension = lastPart.toLowerCase();
+        }
+    }
+
+    let timestamp = '?t=' + new Date().getTime();
+    if (foundExtension) {
+        const fullImageUrl = url;
+        $(seletor).attr('src', fullImageUrl + timestamp);
+    } else {
+
+        for (const ext of extensions) {
+            const imageUrl = `${url}.${ext}`;
+    
+            if (foundExtension) {
+                break;
+            }
+        
+            fetch(imageUrl, { method: 'HEAD' })
+                .then(function (response) {
+                    if (response.ok) {
+                        foundExtension = ext;
+                        const fullImageUrl = `${url}.${foundExtension}`;
+                        $(seletor).attr('src', fullImageUrl + timestamp);
+                    }
+                })
+        }
+        
+        if (!foundExtension) {
+            $(seletor).attr('src', urlSemFoto + timestamp);
+        }
+    }
+}
+
+  

@@ -102,6 +102,8 @@ $(document).ready(function(){
                     $('#termo').val(data[0].termo);
                     $('#obs').val(data[0].obs);
 
+                    buscaFoto(`../img/fotos/pessoas/${idpessoa}`,'#fotoPessoa');
+
                     executeMask();
                 }
 

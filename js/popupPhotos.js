@@ -57,36 +57,9 @@ let pathFolder = '';
         $('#titlePopPhoto').html(title);
         $('#headerData').html(htmlHeader);
         
-        checkImage(`${pathFolder}/${idPhoto}`);
+        buscaFoto(`${pathFolder}/${idPhoto}`,'#photoPopPhoto');
     }
 
-    function checkImage(urlBase) {
-        const extensions = ['jpg', 'jpeg', 'png'];
-        let foundExtension = null;
-    
-        // Verifique cada extensão em busca de uma correspondência
-        for (const ext of extensions) {
-            const imageUrl = `${urlBase}.${ext}`;
-    
-            fetch(imageUrl, { method: 'HEAD' })
-                .then(function (response) {
-                    if (response.ok) {
-                        foundExtension = ext;
-                        $('#photoPopPhoto').attr('src', imageUrl);
-                        // Você encontrou uma imagem, faça o que quiser aqui
-                    }
-                })
-        }
-    
-        // Se você encontrou uma extensão, você pode usar a URL completa
-        if (foundExtension) {
-            const fullImageUrl = `${urlBase}.${foundExtension}`;
-            $('#photoPopPhoto').attr('src', fullImageUrl);
-        } else {
-            $('#photoPopPhoto').attr('src', '../img/sem-foto.png');
-        }
-    }    
-      
     const preview = $('#preview')[0];
     preview.width = 340;
     preview.height = 480;
@@ -201,23 +174,24 @@ let pathFolder = '';
                     if (data.success==1) {
                         alert('Foto(s) enviada(s) com sucesso!');
                         close = true;
+                        buscaFoto(`${pathFolder}/${idPhoto}`,idImgUpdate);
                     } else {
                         let message = 'Um ou mais fotos não obtveram sucesso no salvamento:\n' + data.message;
                         alert(message);
                         console.log(message);
                     }
 
-                    if (data.paths.length) {
-                        let index = data.paths.findIndex((element)=>element.name==idPhoto);
+                    // if (data.paths.length) {
+                    //     let index = data.paths.findIndex((element)=>element.name==idPhoto);
 
-                        data.paths.forEach(path => {
-                            if (path.name == idPhoto && path.pathFile!='') {
-                                let timestamp = '?t=' + new Date().getTime();
-                                idImgUpdate!=''?$(''+idImgUpdate).attr('src',`${pathFolder}/${idPhoto}.jpg${timestamp}`):'';
-                            }
-                        });
+                    //     data.paths.forEach(path => {
+                    //         if (path.name == idPhoto && path.pathFile!='') {
+                    //             let timestamp = '?t=' + new Date().getTime();
+                    //             idImgUpdate!=''?$(idImgUpdate).attr('src',`${path.pathFile}${timestamp}`):'';
+                    //         }
+                    //     });
 
-                    }
+                    // }
 
                     close==true?closePopPhoto():'';
 
