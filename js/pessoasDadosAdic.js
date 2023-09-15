@@ -199,6 +199,11 @@ $(document).ready(function(){
             arrMensagens.push('O CEP informado está incompleto.');
         }
 
+        conteudoVerificar = $('#sexo').val();
+        if(!('M','F').includes(conteudoVerificar)) {
+            arrMensagens.push('Informe M ou F no campo Sexo.');
+        }
+
         let strMensagem='';
         if(arrMensagens.length)
             strMensagem = 'Algumas coisas precisam ser resolvidas antes de prosseguir-mos:\r';
@@ -278,6 +283,10 @@ $(document).ready(function(){
             $('#lbldoc').html('CNPJ:');
         }
         
+    })
+
+    $('#sexo').on('keyup', function(){
+        this.value = this.value.toUpperCase();
     })
 
     $('#tipo_doc').on('change', function(){
