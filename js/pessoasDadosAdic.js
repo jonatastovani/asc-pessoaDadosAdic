@@ -218,7 +218,6 @@ $(document).ready(function(){
             action: arrParams.action
         }
         arrdata[arrParams.key] = arrParams.value;
-        
 
         let retorno = true;
 
@@ -230,12 +229,8 @@ $(document).ready(function(){
             async: false,
             success:function(data)
             {
-                console.log(data)
-                console.log(data.length)
                 if (data.length>0) {
-                    console.log('entrou 1')
-                    if (id!=null && data.id == id){
-                        console.log('entrou 2')
+                    if (id!=null && data[0].id == id){
                         retorno = false;
                     }
                 }else {
@@ -321,13 +316,30 @@ $(document).ready(function(){
         }
     }
 
-    $('#select_photo').on('click', function(){
-        openPopPhoto();
+    $('#select_photo').on('click', function(event){
+        event.preventDefault();
+
+        let arrHeaderData = [{
+            title: 'Foto de Cliente',
+            fields : [{
+                label: 'Nome',
+                info: $('#nomePessoa').html(),
+            }, {
+                label: 'Matrícula',
+                info: $('#matrPessoa').html()
+            }]
+        }];
+        let arrInfoPopPhoto = [{
+            arrHeaderData: arrHeaderData,
+            idPhoto: idpessoa,
+            idImgUpdate: '.clsfotoPessoa',
+            pathFolder: '../img/fotos/pessoas'
+        }]
+        openPopPhoto(arrInfoPopPhoto);
     });
 
     $('#tipo_doc').trigger('change');
 
     executeMask();
-
 });
 

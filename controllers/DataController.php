@@ -18,6 +18,7 @@ class DataController {
                 
                 if ( $type === 'pessoasCadHeader' ) {
 
+                    $id = $row['id'];
                     $categ = $row['categ'];
                     $nome = $row['nome'];
                     $matric = $row['matric'];
@@ -47,18 +48,23 @@ class DataController {
                         $data_atualizacao = $data_atualizacao->format('d/m/Y H:i:s');
                     }
 
+                    $caminhoFoto = "../img/fotos/pessoas/$id.jpg";
+
+                    if (!file_exists($caminhoFoto)) {
+                        $caminhoFoto = "../img/sem-foto.png";
+                    }
+
                     $output .= '
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Informações Pessoais</h5>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <p><b>Categoria:</b> '.$categ.'</p>
-                                                <p><b>Matrícula:</b> '.$matric.'-'.$matric_dig.'</p>
+                                                <p><b>Matrícula:</b> <span id="matrPessoa">'.$matric.'-'.$matric_dig.'</span></p>
                                                 <p><b>Admissão:</b> '.$data_admissao.'</p>
-                                                <p><b>Nome Completo:</b> '.$nome.'</p>
+                                                <p><b>Nome Completo:</b> <span id="nomePessoa">'.$nome.'</span></p>
                                                 <p><b>Abreviação:</b> '.$abrev.'</p>
                                             </div>
                                             <div class="col-md-6">
@@ -75,7 +81,7 @@ class DataController {
                             <div class="col-md-3 mx-auto d-flex align-items-center">
                                 <div class="col-md-12">
                                     <div class="embed-responsive embed-responsive-3by4" style="height: 200px;">
-                                        <img src="../img/sem-foto.png" alt="Foto da Pessoa" class="embed-responsive-item img-fluid" style="width: auto; max-height: 100%;">
+                                        <img src="'.$caminhoFoto.'" alt="Foto da Pessoa" class="clsfotoPessoa embed-responsive-item img-fluid" style="width: auto; max-height: 100%;">
                                     </div>
                                 </div>
                             </div>

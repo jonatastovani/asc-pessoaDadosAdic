@@ -114,33 +114,7 @@
     font-weight: 600;
 }
 
-#novo-artigo {
-    width: 380px;
-}
-
-#popunidades, #poprecebimentotrans, #popnovamudanca, #popfuncionario, #popcadvisi, #popmedass {
+#popPhoto {
     width: 100%;
     max-width: 800px;
-}
-
-#popnovogerais, #popexclusoes, #popatendenf, #popnovovis, #popfotovisitante {
-    width: 100%;
-    max-width: 920px;
-}
-
-#popraioslocais, #popconfentsai, #popcelasvisitas {
-    width: 690px;
-}
-
-#popnovomedic {
-    width: 615px;
-}
-
-#popnovoatend, #popatend, #popbook {
-    width: 90vw;
-}
-
-#kitentregue, #novo-itemkit, #pertencespreso,
-#novo-pertence, #movimentacaotrans {
-    width: 480px;
 }

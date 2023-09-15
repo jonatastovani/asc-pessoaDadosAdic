@@ -1,36 +1,39 @@
-let strCPFfoto = 0;
 let idPhoto = 0;
 let arrHeaderData = [];
+let idImgUpdate = '';
+let pathFolder = '';
 
-$(document).ready(function(){
+// $(document).ready(function(){
 
-    function setInfo(arrInfoFoto) {
-        arrHeaderData = arrInfoFoto.arrHeaderData;
-        idPhoto = arrInfoFoto.idPhoto;
-    }
+    function openPopPhoto(arrInfoPopPhoto){
 
-    function openPopPhoto(){
+        arrHeaderData = arrInfoPopPhoto[0].arrHeaderData;
+        idPhoto = arrInfoPopPhoto[0].idPhoto;
+        idImgUpdate = arrInfoPopPhoto[0].idImgUpdate;
+        pathFolder = arrInfoPopPhoto[0].pathFolder;
+
         clearPopPhoto();
         if(idPhoto>0){
             fillHeaderDataPopPhoto();
-            $("#pop-popfotovisitante").addClass("active");
-            $("#pop-popfotovisitante").find(".popup").addClass("active");
-            $('#cpfpopfotovisitante').focus();
+            $("#pop-popPhoto").addClass("active");
+            $("#pop-popPhoto").find(".popup").addClass("active");
         }
     }
     //Fechar pop-up Artigo
-    $("#pop-popfotovisitante").find(".close-btn").on("click",function(){
-        fecharPopFotoVisitante();
+    $("#pop-popPhoto").find(".close-btn").on("click",function(){
+        closePopPhoto();
     })
-    function fecharPopFotoVisitante(){
-        $("#pop-popfotovisitante").removeClass("active");
-        $("#pop-popfotovisitante").find(".popup").removeClass("active");
+    function closePopPhoto(){
+        $("#pop-popPhoto").removeClass("active");
+        $("#pop-popPhoto").find(".popup").removeClass("active");
+        arrHeaderData = [];
         idPhoto = 0;
-        strCPFfoto = 0;
+        idImgUpdate = '';
+        pathFolder = '';
     }
 
     $('#cancelPopPhoto').click(()=>{
-        fecharPopFotoVisitante();
+        closePopPhoto();
     })
 
     function clearPopPhoto(){
@@ -41,35 +44,48 @@ $(document).ready(function(){
     }
 
     function fillHeaderDataPopPhoto(){
-        let legendTitle = arrHeaderData.legendTitle?arrHeaderData.legendTitle:'Seleção de Foto';
+        let title = arrHeaderData[0].title?arrHeaderData[0].title:'Seleção de Foto';
 
         let htmlHeader = '<div class="row"><div class="col-12"><div class="card"><div class="card-body">';
 
-        arrHeaderData.fields.forEach(element => {
+        arrHeaderData[0].fields.forEach(element => {
             htmlHeader += '<p><b>'+element.label+':</b> '+element.info+'</p>';
         });
 
         htmlHeader += '</div></div></div></div>';
 
-        $('#legendTitle').val(legendTitle);
+        $('#titlePopPhoto').html(title);
         $('#headerData').html(htmlHeader);
         
-        checkImage(arrHeaderData.pathPhoto);
+        checkImage(`${pathFolder}/${idPhoto}`);
     }
 
-    function checkImage(url) {
-        fetch(url, { method: 'HEAD' })
-            .then(function (response) {
-                if (response.ok) {
-                    $('#photoPopPhoto').attr('src', url);
-                } else {
-                    $('#photoPopPhoto').attr('src', '../img/sem-foto.png');
-                }
-            })
-            .catch(function (error) {
-            console.log('Erro ao verificar a imagem:', error);
-        });
-    }
+    function checkImage(urlBase) {
+        const extensions = ['jpg', 'jpeg', 'png'];
+        let foundExtension = null;
+    
+        // Verifique cada extensão em busca de uma correspondência
+        for (const ext of extensions) {
+            const imageUrl = `${urlBase}.${ext}`;
+    
+            fetch(imageUrl, { method: 'HEAD' })
+                .then(function (response) {
+                    if (response.ok) {
+                        foundExtension = ext;
+                        $('#photoPopPhoto').attr('src', imageUrl);
+                        // Você encontrou uma imagem, faça o que quiser aqui
+                    }
+                })
+        }
+    
+        // Se você encontrou uma extensão, você pode usar a URL completa
+        if (foundExtension) {
+            const fullImageUrl = `${urlBase}.${foundExtension}`;
+            $('#photoPopPhoto').attr('src', fullImageUrl);
+        } else {
+            $('#photoPopPhoto').attr('src', '../img/sem-foto.png');
+        }
+    }    
       
     const preview = $('#preview')[0];
     preview.width = 340;
@@ -114,11 +130,11 @@ $(document).ready(function(){
     const imageLoader = $('#uploaderPopPhoto')[0];
     imageLoader.addEventListener('change',loadImage);
 
-    function downloadFotoVisitante(){
+    function downloadPopPhoto(){
         const image = preview.toDataURL();
         const link = document.createElement('a');
         link.href = image;
-        link.download = strCPFfoto+'.jpg';
+        link.download = idPhoto+'.jpg';
         link.click();
     }
 
@@ -134,8 +150,6 @@ $(document).ready(function(){
                 context.drawImage(imageObj, Math.floor(c.x), Math.floor(c.y), Math.floor(c.w), Math.floor(c.h), 0, 0, canvas.width, canvas.height);
             }
 
-            inserirCPFFoto(canvas);
-
             if($('#divimgpreview').attr('hidden')=='hidden'){
                 $('#divimgpreview').removeAttr('hidden');
             }
@@ -143,7 +157,7 @@ $(document).ready(function(){
             if($('#downloadPhoto').attr('hidden')=='hidden'){
                 $('#downloadPhoto').removeAttr('hidden');
                 $('#downloadPhoto').click(()=>{
-                    downloadFotoVisitante();
+                    downloadPopPhoto();
                 });
             }
 
@@ -151,77 +165,72 @@ $(document).ready(function(){
                 $('#savePhoto').removeAttr('hidden');
                 
                 $('#savePhoto').click(()=>{
-                    salvarPopFotoVisisante();
+                    savePopPhoto();
                 });
             }
         }
     }
 
-    function inserirCPFFoto(canvas) {
-        var fontSizeCPF = 30;
-        var color = 'white';
-        var ctx = canvas.getContext('2d')
-
-        var i = canvas.width;
-        //Colocar faixa de fundo somente atás das letras
-        /*var i = string.length;
-        i = i*fontSize*0.62;
-        if (i > canvas.width) {
-        i = canvas.width;
-        }*/
-
-        ctx.fillStyle = "RGBA(0, 0, 0, 0.8)"; // Fundo preto
-        //ctx.fillStyle = "RGBA(255, 255, 255, 0.8)"; // Fundo branco
-        //ctx.fillRect(canvas.width / 2 - i / 2,canvas.height / 2 - (fontSize * 1.5) / 2, i, (fontSize * 1.5) ); // Centralização da faixa
-        ctx.fillRect(canvas.width / 2 - i / 2,canvas.height - 30 - (fontSizeCPF * 1.5) / 2, i, (fontSizeCPF * 1.5) );
-        ctx.font = fontSizeCPF.toString() + "px monospace";
-        ctx.fillStyle = color;
-        ctx.textBaseline = "middle";
-        ctx.textAlign = "center";
-
-        ctx.fillText(strCPFfoto, canvas.width / 2, canvas.height - 30);
+    document.onkeydown = function(e) {
+        if(e.key === 'Escape') {
+            if($('#pop-popPhoto').find(".popup.active").length==1){
+                $("#pop-popPhoto").find(".close-btn").trigger('click');
+            }
+        }
     }
 
-    function salvarPopFotoVisisante(){
+    function savePopPhoto(){
 
-        var fotos = [];
-        // var canvas = document.querySelectorAll('.foto');
-        // for(var i=0;i<canvas.length;i++){
-        //     fotos.push({
-        //         nome: retornaSomenteNumeros("429.712.118-27"),
-        //         imagem: canvas[i].toDataURL()
-        //     })
-        // }
-
+        var photo = [];
         var canvas = $('#preview')[0];
-        fotos.push({
-            nome: 1,
-            imagem: canvas.toDataURL()
+        photo.push({
+            name: idPhoto,
+            image: canvas.toDataURL()
         })
 
-        // console.log(fotos);
-
         $.ajax({
-            url: 'ajax/inserir_alterar/salvar_foto_servidor.php',
-            method: 'POST',
-            //Insere os dados no data. key: value. Pode fazer o data fora daqui e depois inserir a variável para atribuir no data.
-            data: {tipo: 2, cpfvisitante: strCPFfoto, fotos: fotos},
-            //json é uma linguagem que ambos se entendem. Tanto javascript quanto PHP.
-            dataType: 'json',
-            async: false
-        }).done(function(result){
-            //console.log(result)
+            url: "../api/savePopPhotos.php",
+            method:"POST",
+            data: {action: 'insert', pathFolder: pathFolder, photos: photo},
+            dataType: "json",
+            success:function(data) {
 
-            if(result.MENSAGEM){
-                inserirMensagemTela(result.MENSAGEM);
-            }else{
-                inserirMensagemTela(result.OK);
-                if($('#fotovisita1').length>0){
-                    atualizaFotoVisitante();
+                let close = false;
+
+                if(data.success==1 || data.success==2){
+                    if (data.success==1) {
+                        alert('Foto(s) enviada(s) com sucesso!');
+                        close = true;
+                    } else {
+                        let message = 'Um ou mais fotos não obtveram sucesso no salvamento:\n' + data.message;
+                        alert(message);
+                        console.log(message);
+                    }
+
+                    if (data.paths.length) {
+                        let index = data.paths.findIndex((element)=>element.name==idPhoto);
+
+                        data.paths.forEach(path => {
+                            if (path.name == idPhoto && path.pathFile!='') {
+                                let timestamp = '?t=' + new Date().getTime();
+                                idImgUpdate!=''?$(''+idImgUpdate).attr('src',`${pathFolder}/${idPhoto}.jpg${timestamp}`):'';
+                            }
+                        });
+
+                    }
+
+                    close==true?closePopPhoto():'';
+
+                } else {
+                    let message = 'Uma ou mais fotos não obtveram sucesso no salvamento:\n' + data.message;
+                    alert(message);
+                    console.log(message);
+                    
                 }
-                fecharPopFotoVisitante();
+            },
+            error: function (error) {
+                console.log(error)
+                alert('Erro no salvamento. Tente novamente mais tarde, se o problema persistir, consulte o desenvolvedor.');
             }
         });
     }
-
-});

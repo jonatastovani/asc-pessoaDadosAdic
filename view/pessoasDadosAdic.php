@@ -1,5 +1,5 @@
 <?php
-	$_POST['id_pessoaDadosAdic'] = 2;
+	$_POST['id_pessoaDadosAdic'] = 1;
 	$idpessoa = isset($_POST['id_pessoaDadosAdic'])?$_POST['id_pessoaDadosAdic']:0;
 ?>
 <!DOCTYPE html>
@@ -11,6 +11,7 @@
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/popup-style.css">
+		<link rel="stylesheet" href="../css/jquery.Jcrop.min.css">
 	</head>
 	
 	<body>
@@ -95,13 +96,12 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="embed-responsive embed-responsive-3by4" style="height: 200px;">
-									<img src="../img/sem-foto.png" alt="Foto da Pessoa" class="embed-responsive-item img-fluid">
+									<img src="../img/sem-foto.png" id="fotoPessoa" alt="Foto da Pessoa" class="clsfotoPessoa embed-responsive-item img-fluid" style="width: auto; max-height: 100%;">
 								</div>
 							</div>
 							<div class="col-md-12 mt-3">
 								<button class="btn btn-primary me-2" id="select_photo">Selecionar</button>
 								<button class="btn btn-danger">Remover</button>
-								<input type="file" id="uploader" hidden accept="image/jpeg,image/png"><br><br>
 							</div>
 						</div>
 					</div>
@@ -242,7 +242,8 @@
 
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+		<script src="../js/jquery-3.6.0.min.js.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>

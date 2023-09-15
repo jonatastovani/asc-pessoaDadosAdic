@@ -454,7 +454,7 @@ class dataBase {
 		$escapeId = mysqli_real_escape_string($con, $PessoasCadastros->getId());
 
 		$pessoa = array();		
-		$query = "SELECT pc.categ, pc.matric, pc.matric_dig, pc.titulo, pc.data_admissao, pc.nome, pc.abrev, pc.link_erp, pc.data_cadastro, pc.data_atualizacao, pc.sit_titulo
+		$query = "SELECT pc.id, pc.categ, pc.matric, pc.matric_dig, pc.titulo, pc.data_admissao, pc.nome, pc.abrev, pc.link_erp, pc.data_cadastro, pc.data_atualizacao, pc.sit_titulo
 		FROM pessoa_cadastro pc
 		WHERE pc.id = $escapeId;";
 		
