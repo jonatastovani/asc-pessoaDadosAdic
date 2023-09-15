@@ -6,8 +6,7 @@
             <div class="form">
                 <h2 class="text-center" id="titlePopPhoto">Seleção de Foto</h2>
 
-                <fieldset class="form-group">
-                    <legend class="mb-4">Informações</legend>
+                <div class="form-group mt-5">
                     <div class="row">
                         <div class="col-md-8">
                             <span id="headerData"></span>
@@ -20,12 +19,12 @@
                             </div>
                         </div>
                     </div>
-                </fieldset>
+                </div>
 
-                <fieldset class="form-group">
-                    <legend><label for="uploaderPopPhoto">Selecione o arquivo:</label></legend>
+                <div class="form-group">
+                    <!-- <label for="uploaderPopPhoto">Selecione o arquivo:</label> -->
                     <input type="file" class="form-control-file" id="uploaderPopPhoto" accept="image/jpeg,image/png"><br><br>
-                </fieldset>
+                </div>
 
                 <div id="divimgoriginal" class="text-center divscanvasPopPhoto" hidden>
                     <div class="form-group">

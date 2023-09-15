@@ -208,3 +208,33 @@ let pathFolder = '';
             }
         });
     }
+
+    function deletePopPhoto(arrData){
+
+        let pathFolder = arrData[0].pathFolder;
+        let arrIdsPhotos = arrData[0].idsPhotos;
+        let idImg = arrData[0].idImg;
+
+        $.ajax({
+            url: "../api/savePopPhotos.php",
+            method:"POST",
+            data: {action: 'delete', pathFolder: pathFolder, arrIdsPhotos: arrIdsPhotos},
+            dataType: "json",
+            success:function(data) {
+
+                if (data.success==1) {
+                    alert(data.message);
+                    buscaFoto(`${pathFolder}/${arrIdsPhotos[0]}`,idImg);
+                } else if (data.success==2) {
+                    alert(data.message);
+                    console.log(data.message);
+                }
+
+            },
+            error: function (error) {
+                console.log(error)
+                alert('Erro no salvamento. Tente novamente mais tarde, se o problema persistir, consulte o desenvolvedor.');
+            }
+        });
+    }
+

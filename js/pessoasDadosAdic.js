@@ -200,7 +200,7 @@ $(document).ready(function(){
         }
 
         conteudoVerificar = $('#sexo').val();
-        if(!('M','F').includes(conteudoVerificar)) {
+        if(!['M','F'].includes(conteudoVerificar)) {
             arrMensagens.push('Informe M ou F no campo Sexo.');
         }
 
@@ -328,7 +328,6 @@ $(document).ready(function(){
     }
 
     $('#select_photo').on('click', function(event){
-        event.preventDefault();
 
         let arrHeaderData = [{
             title: 'Foto de Cliente',
@@ -347,6 +346,17 @@ $(document).ready(function(){
             pathFolder: '../img/fotos/pessoas'
         }]
         openPopPhoto(arrInfoPopPhoto);
+    });
+
+    $('#remove_photo').on('click', function(event){
+
+        let arrData = [{
+            idsPhotos: [idpessoa],
+            pathFolder: '../img/fotos/pessoas',
+            idImg: '.clsfotoPessoa'
+        }];
+        deletePopPhoto(arrData);
+        
     });
 
     $('#tipo_doc').trigger('change');

@@ -100,8 +100,8 @@
 								</div>
 							</div>
 							<div class="col-md-12 mt-3">
-								<button class="btn btn-primary me-2" id="select_photo">Selecionar</button>
-								<button class="btn btn-danger">Remover</button>
+								<input type="button" class="btn btn-primary me-2" id="select_photo" value="Selecionar">
+								<input type="button" class="btn btn-danger" id="remove_photo" value="Remover">
 							</div>
 						</div>
 					</div>

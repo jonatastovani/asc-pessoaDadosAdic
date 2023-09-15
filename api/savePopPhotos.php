@@ -49,7 +49,42 @@ if (isset($_POST["action"])) {
 			];
 
             break;
-    }
+
+		case 'delete':
+
+			$arrIdsPhotos = $_POST['arrIdsPhotos'];
+			$pathFolder = $_POST['pathFolder'];
+
+			$strMessage = "";
+			$success = 0;
+
+			foreach ($arrIdsPhotos as $idPhoto) {
+
+				$pathFile = $pathFolder."/".$idPhoto.".jpg";
+
+				if (file_exists($pathFile)) {
+					
+					unlink($pathFile);
+
+					$success = 1;
+					$strMessage = "Foto deletada com sucesso!";
+
+				} else {
+					$success = 2;
+					$strMessage = "Foto não encontrada!";
+
+				}
+
+			}
+
+			$res = [
+				'success'	=> $success,
+				'message'	=> $strMessage
+			];
+
+			break;
+	}
+	
 
 } else {
     $res = ["error" => "Ação não encontrada"];
