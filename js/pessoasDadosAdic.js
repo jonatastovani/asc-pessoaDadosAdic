@@ -17,22 +17,15 @@ $(document).ready(function(){
 
         $.ajax({
             url:"../api/getdataGeral.php",
+            method:"POST",
             data: { type:type, param:param },
             dataType: "json",
             success: function(response){
 
-                if (response.status === 'success') {
-                    $('#headerPessoa').html(response.data);
-                } else {
-                    let html = 'Erro: ' + response.message;
-
-                    if ($('#headerPessoa').find('.card-body').length){
-                        $('#headerPessoa').html(html);
-                    } else {
-                        $('#headerPessoa').append(html);
-                    }
-                    $('#form1').attr('hidden', 'hidden');
-            
+                $('tbody').html(response.data);
+                
+                if (response.status === 'error') {
+                    console.log('Erro: ' + response.message);
                 }
 
             },
@@ -53,58 +46,66 @@ $(document).ready(function(){
             data:{id:idpessoa,action:action},
             dataType:"json",
             async: false,
-            success:function(data) {
+            success:function(response) {
                 
-                if (data[0].success) {
-                    iddadosadic = null;
-                    $('#id_dadosAdic').val('');
-                    $('#action').val('insert_pessoasDadosAdic');
-                
-                } else {
-                
-                    iddadosadic = data[0].id;
-                    $('#id_dadosAdic').val(data[0].id);
-                    $('#action').val('update_pessoasDadosAdic');
+                switch (response.status) {
+                    case 'noContent':
+                        iddadosadic = null;
+                        $('#id_dadosAdic').val('');
+                        $('#action').val('insert_pessoasDadosAdic');
+                        break;
 
-                    $('#end_cep').val(data[0].end_cep);
-                    $('#end_logr').val(data[0].end_logr);
-                    $('#end_num').val(data[0].end_num);
-                    $('#end_ref').val(data[0].end_ref);
-                    $('#end_bair').val(data[0].end_bair);
-                    $('#end_cid').val(data[0].end_cid);
-                    $('#end_est').val(data[0].end_est);
-                    $('#tel1').val(data[0].tel1);
-                    $('#tel2').val(data[0].tel2);
-                    $('#tel3').val(data[0].tel3);
-                    $('#doc').val(data[0].doc);
-                    $('#tipo_doc').val(data[0].tipo_doc);
-                    $('#rg').val(data[0].rg);
-                    $('#oe').val(data[0].oe);
-                    $('#nacio').val(data[0].nacio);
-                    $('#natur').val(data[0].natur);
-                    $('#est_civ').val(data[0].est_civ);
-                    $('#escol').val(data[0].escol);
-                    $('#data_nasc').val(data[0].data_nasc);
-                    $('#situacao').val(data[0].situacao);
-                    $('#data_falec').val(data[0].data_falec!='0000-00-00'?data[0].data_falec:'');
-                    $('#email_pess').val(data[0].email_pess);
-                    $('#sexo').val(data[0].sexo);
-                    $('#email_bol').val(data[0].email_bol);
-                    $('#email_adic').val(data[0].email_adic);
-                    $('#trat_pess').val(data[0].trat_pess);
-                    $('#socio_cons').val(data[0].socio_cons);
-                    $('#data_vinc').val(data[0].data_vinc!='0000-00-00'?data[0].data_vinc:'');
-                    $('#data_ret_sit').val(data[0].data_ret_sit!='0000-00-00'?data[0].data_ret_sit:'');
-                    $('#sit_ret').val(data[0].sit_ret);
-                    $('#quadro').val(data[0].quadro);
-                    $('#matr_opc').val(data[0].matr_opc);
-                    $('#data_desl').val(data[0].data_desl!='0000-00-00'?data[0].data_desl:'');
-                    $('#termo').val(data[0].termo);
-                    $('#obs').val(data[0].obs);
+                    case 'success':
 
-                    buscaFoto(`../img/fotos/pessoas/${idpessoa}`,'#fotoPessoa');
+                        iddadosadic = response.data[0].id;
+                        $('#id_dadosAdic').val(response.data[0].id);
+                        $('#action').val('update_pessoasDadosAdic');
 
-                    executeMask();
+                        $('#end_cep').val(response.data[0].end_cep);
+                        $('#end_logr').val(response.data[0].end_logr);
+                        $('#end_num').val(response.data[0].end_num);
+                        $('#end_ref').val(response.data[0].end_ref);
+                        $('#end_bair').val(response.data[0].end_bair);
+                        $('#end_cid').val(response.data[0].end_cid);
+                        $('#end_est').val(response.data[0].end_est);
+                        $('#tel1').val(response.data[0].tel1);
+                        $('#tel2').val(response.data[0].tel2);
+                        $('#tel3').val(response.data[0].tel3);
+                        $('#doc').val(response.data[0].doc);
+                        $('#tipo_doc').val(response.data[0].tipo_doc);
+                        $('#rg').val(response.data[0].rg);
+                        $('#oe').val(response.data[0].oe);
+                        $('#nacio').val(response.data[0].nacio);
+                        $('#natur').val(response.data[0].natur);
+                        $('#est_civ').val(response.data[0].est_civ);
+                        $('#escol').val(response.data[0].escol);
+                        $('#data_nasc').val(response.data[0].data_nasc);
+                        $('#situacao').val(response.data[0].situacao);
+                        $('#data_falec').val(response.data[0].data_falec!='0000-00-00'?response.data[0].data_falec:'');
+                        $('#email_pess').val(response.data[0].email_pess);
+                        $('#sexo').val(response.data[0].sexo);
+                        $('#email_bol').val(response.data[0].email_bol);
+                        $('#email_adic').val(response.data[0].email_adic);
+                        $('#trat_pess').val(response.data[0].trat_pess);
+                        $('#socio_cons').val(response.data[0].socio_cons);
+                        $('#data_vinc').val(response.data[0].data_vinc!='0000-00-00'?response.data[0].data_vinc:'');
+                        $('#data_ret_sit').val(response.data[0].data_ret_sit!='0000-00-00'?response.data[0].data_ret_sit:'');
+                        $('#sit_ret').val(response.data[0].sit_ret);
+                        $('#quadro').val(response.data[0].quadro);
+                        $('#matr_opc').val(response.data[0].matr_opc);
+                        $('#data_desl').val(response.data[0].data_desl!='0000-00-00'?response.data[0].data_desl:'');
+                        $('#termo').val(response.data[0].termo);
+                        $('#obs').val(response.data[0].obs);
+
+                        buscaFoto(`../img/fotos/pessoas/${idpessoa}`,'#fotoPessoa');
+
+                        executeMask();
+                        break;
+
+                    default:
+                        console.log('Erro: ' + response.message);
+                        alert("Houve um erro ao realizar o salvamento.");
+
                 }
 
             },
@@ -133,16 +134,26 @@ $(document).ready(function(){
             url: "../api/savePessoasDadosAdic.php",
             method:"POST",
             data:form1,
-            success:function(data) {
+            dataType: 'json',
+            success:function(response) {
 
-                if (data === 'error2') {
-                    alert("Os dados enviados já encontram-se cadastrados no nosso Banco de Dados! Revise as informações ou edite o cadastro existente.");
-                } else if (data === 'insert') {
-                    alert("Dados inseridos!");
+                switch (response.status) {
+                    case 'success':
+                        alert(response.message);
 
-                } else if (data === 'update') {
-                    alert("Dados atualizados!");
+                        break;
+                    
+                    case 'conflict':
+                        alert(response.message);
+
+                        break;
+                    
+                    default: 
+                        console.log('Erro: ' + response.message);
+                        alert("Houve um erro ao realizar o salvamento.");
+
                 }
+
             }
         });				
         
@@ -150,37 +161,54 @@ $(document).ready(function(){
         
     function verificacoes() {
         let arrMensagens = [];
+        let id = $('#action').val()=='update_pessoasDadosAdic'?iddadosadic:null
 
-        let arrData = {
-            action: 'idPessoaPessoasDadosAdic_one',
-            key: 'id_pessoa',
-            value: idpessoa,
-            id: $('#action').val()=='update_pessoasDadosAdic'?idpessoa:null
-        }
-        if (verificaDadosDuplicados(arrData)!=false) {
-            arrMensagens.push('Já consta em nossos cadastros dados pessoais da pessoa em tela. Atualize a página e altere as informações caso seja necessário.')
-        }
+        let arrConsultas = [{
+            nomeConsulta: 'ID Pessoa',
+            messageConflict: 'Já consta em nossos cadastros dados pessoais da pessoa em tela. Atualize a página e altere as informações caso seja necessário.',
+            arrData: {
+                action: 'pessoasDadosAdic_one',
+                key: 'id_pessoa',
+                value: idpessoa,
+            }
+        }, {
+            nomeConsulta: 'Documento',
+            messageConflict: 'O documento '+$('#lbldoc').html()+' informado já consta em nossos cadastros.',
+            arrData: {
+                action: 'docPessoasDadosAdic_one',
+                key: 'doc',
+                value: $('#doc').val(),
+            }
+        }, {
+            nomeConsulta: 'Email',
+            messageConflict: 'O email informado já consta em nossos cadastros.',
+            arrData: {
+                action: 'emailPessoasDadosAdic_one',
+                key: 'email_pess',
+                value: $('#email_pess').val()
+            }
+        }]
+
+        arrConsultas.forEach(verif => {
+            let response = verificaDadosDuplicados(verif.arrData);
+            switch (response.status) {
+                case 'success':
+                    if (response.data.length>0) {
+                        if (id!=null && response.data[0].id != id){
+                            arrMensagens.push(verif.messageConflict);
+                        }
+                    }
             
-        arrData = {
-            action: 'docPessoasDadosAdic_one',
-            key: 'doc',
-            value: $('#doc').val(),
-            id: $('#action').val()=='update_pessoasDadosAdic'?idpessoa:null
-        }
+                default: 
+                    console.log('Erro: ' + response.message);
+                    alert("Houve um erro ao realizar a consulta.");
+                    arrMensagens.push(`Consulta: ${verif.nomeConsulta} -> ${response.message}`);
+
+            }
+        });
 
         if (verificaDadosDuplicados(arrData)!=false) {
-            arrMensagens.push('O documento '+$('#lbldoc').html()+' informado já consta em nossos cadastros.')
-        }
-            
-        arrData = {
-            action: 'emailPessoasDadosAdic_one',
-            key: 'email_pess',
-            value: $('#email_pess').val(),
-            id: $('#action').val()=='update_pessoasDadosAdic'?idpessoa:null
-        }
-
-        if (verificaDadosDuplicados(arrData)!=false) {
-            arrMensagens.push('O email informado já consta em nossos cadastros.')
+            arrMensagens.push('')
         }
             
         let conteudoVerificar = $('#doc').val().replace(/\D/g, '');
@@ -216,17 +244,16 @@ $(document).ready(function(){
     }
 
     function verificaDadosDuplicados(arrParams){
-        let id = null;
-        if(arrParams.id){
-            id = arrParams.id;
-        }
         
         let arrdata = {
             action: arrParams.action
         }
         arrdata[arrParams.key] = arrParams.value;
 
-        let retorno = true;
+        let retorno = {
+            status: 'notFound',
+            message: 'A consulta não foi realizada.'
+        };
 
         $.ajax({
             url:"../api/savePessoasDadosAdic.php",
@@ -234,19 +261,12 @@ $(document).ready(function(){
             data:arrdata,
             dataType:"json",
             async: false,
-            success:function(data)
+            success:function(response)
             {
-                if (data.length>0) {
-                    if (id!=null && data[0].id == id){
-                        retorno = false;
-                    }
-                }else {
-                    retorno = false;
-                }
+                retorno = response;
             },
             error: function(result) {
-                console.log(result);					
-                retorno = true;
+                console.log(result);
             }
         });
 

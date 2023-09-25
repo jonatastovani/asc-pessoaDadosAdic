@@ -9,14 +9,11 @@ require_once ( "../dao/dataBase.php" ) ;
 
 require_once ( "../models/PessoasCadastros.php" );
 require_once ( "../models/PessoasDadosAdic.php" );
-require_once ( "../models/Email.php" );
 
 $data = new DataBase( $host, $user, $password, $dbname );
 
 $PessoasCadastros = new PessoasCadastros();
 $PessoasDadosAdic = new PessoasDadosAdic();
-
-$Email = new Email();
 
 switch ($_GET['action']) {
 
@@ -125,12 +122,6 @@ switch ($_GET['action']) {
 		$doc = $PessoasDadosAdic->setDoc(preg_replace('/\D/', '',$_GET["doc"]));	
 		$res = $data->docPessoasDadosAdic_one( $PessoasDadosAdic );
 	
-		break;
-
-	case 'idPessoaPessoasDadosAdic_one':
-		$idPessoa = $PessoasDadosAdic->setIdPessoa(preg_replace('/\D/', '',$_GET["id_pessoa"]));	
-		$res = $data->idPessoaPessoasDadosAdic_one( $PessoasDadosAdic );
-
 		break;
 
 	case 'emailPessoasDadosAdic_one':

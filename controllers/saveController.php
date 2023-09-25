@@ -4,8 +4,6 @@ class saveController {
 
 	public static function add( array $form_data, string $param, string $url_api ):string {		
 		
-		// var_dump($form_data);
-
 		$url = $url_api.$param;
 
 		$client = curl_init($url);
@@ -15,24 +13,8 @@ class saveController {
 		$response = curl_exec($client);	
 
 		curl_close($client);
-
-		$result = json_decode($response, true);	
 		
-		foreach($result as $keys => $values)
-		{
-			if($result[$keys]['success'] === '1')
-			{
-				return 'insert';
-			}
-			else if($result[$keys]['success'] === '2') 
-			{
-				return 'error2';
-			}
-			else
-			{
-				return 'error';
-			}
-		}		
+		return $response;	
 		
 	}
 
@@ -43,18 +25,9 @@ class saveController {
 		$client = curl_init($url);
 		curl_setopt($client, CURLOPT_RETURNTRANSFER, true);		
 		$response = curl_exec($client);				
-		return $response;	
-		
-	}
-	
-	// Função nova para fazer as validações em caso de cadastro duplicado
-	public static function getForValidation( string $key = null, string $param, string $url_api ):string {		
 
-		$url = $url_api.$param;	
-		
-		$client = curl_init($url);
-		curl_setopt($client, CURLOPT_RETURNTRANSFER, true);		
-		$response = curl_exec($client);				
+		curl_close($client);
+
 		return $response;	
 		
 	}
@@ -71,19 +44,7 @@ class saveController {
 
 		curl_close($client);
 
-		$result = json_decode($response, true);
-		
-		foreach($result as $keys => $values){
-			
-			if($result[$keys]['success'] === '1')
-			{
-				return 'update';
-			}
-			else
-			{
-				return 'error';
-			}		
-		}
+		return $response;
 
 	}
 
@@ -93,9 +54,12 @@ class saveController {
 		$client = curl_init($url);
 		curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($client);				
+
+		curl_close($client);
+
 		return $response;			
 	}
-
+	
 	public static function sendEmail( array $form_data, string $param, string $url_api ):string {
 
 		$url = $url_api.$param;	

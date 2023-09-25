@@ -117,21 +117,14 @@ if (isset($_POST["action"]))
 			$doc = $_POST["doc"];	
 			$param = "?action=docPessoasDadosAdic_one&doc=".$doc."";		
 	
-			echo saveController::getForValidation( $doc, $param, $url_api );		
-			break;
-
-		case 'idPessoaPessoasDadosAdic_one':
-			$idPessoa = $_POST["id_pessoa"];
-			$param = "?action=idPessoaPessoasDadosAdic_one&id_pessoa=".$idPessoa."";		
-	
-			echo saveController::getForValidation( $idPessoa, $param, $url_api );		
+			echo saveController::getOne( $doc, $param, $url_api );		
 			break;
 
 		case 'emailPessoasDadosAdic_one':
 			$emailPess = $_POST["email_pess"];	
 			$param = "?action=emailPessoasDadosAdic_one&email_pess=".$emailPess."";		
 
-			echo saveController::getForValidation( $emailPess, $param, $url_api );		
+			echo saveController::getOne( $emailPess, $param, $url_api );		
 			break;
 
 	}
