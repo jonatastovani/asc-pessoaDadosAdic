@@ -56,7 +56,7 @@ if (isset($_POST["action"]))
 			$param = "?action=insert_pessoasDadosAdic";
 
 			echo saveController::add( $form_data, $param, $url_api );
-			break;
+		break;
 
 		case 'update_pessoasDadosAdic':
 			
@@ -104,28 +104,28 @@ if (isset($_POST["action"]))
 			$param = "?action=update_pessoasDadosAdic";				
 
 			echo saveController::update( $form_data, $param, $url_api );
-			break;
+		break;
 		
 		case 'pessoasDadosAdic_one':
-			$id = $_POST["id"];	
-			$param = "?action=pessoasDadosAdic_one&id=".$id."";		
+			$idPessoa = $_POST["idPessoa"];
+			$param = "?action=pessoasDadosAdic_one&idPessoa=".$idPessoa."";		
 
-			echo saveController::getOne( $id, $param, $url_api );
-			break;
+			echo saveController::getOne( $idPessoa, $param, $url_api );
+		break;
 
 		case 'docPessoasDadosAdic_one':
 			$doc = $_POST["doc"];	
 			$param = "?action=docPessoasDadosAdic_one&doc=".$doc."";		
 	
 			echo saveController::getOne( $doc, $param, $url_api );		
-			break;
+		break;
 
 		case 'emailPessoasDadosAdic_one':
 			$emailPess = $_POST["email_pess"];	
 			$param = "?action=emailPessoasDadosAdic_one&email_pess=".$emailPess."";		
 
 			echo saveController::getOne( $emailPess, $param, $url_api );		
-			break;
+		break;
 
 	}
 

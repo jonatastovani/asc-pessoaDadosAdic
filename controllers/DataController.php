@@ -10,8 +10,10 @@ class DataController {
         $response = curl_exec($client);
         $result = json_decode($response, true);
         $output = "";
+        $status = "";
+        $message = "";
         $responseData = [];
-    
+
         if ($result['status']==='success') {
         
             switch ($type) {
@@ -90,8 +92,9 @@ class DataController {
                                 </div>
 
                             </div>
-                    
                         ';
+                        $status = 'success';
+                        $message = 'Dados encontrados com sucesso.';
 
                     }else {
                         
@@ -101,15 +104,88 @@ class DataController {
                                 <h4>Nenhum resultado de dados.</h4>
                             </div>
                         </div>';
+                        $status = 'noContent';
+                        $message = 'Nenhum resultado de dados.';
         
                     }
-                    break;
+                break;
 
-                }
+                case 'acomodacoes':
+            
+                    if (count($result['data'])) {
 
-            $responseData['status'] = 'success';
-            $responseData['message'] = 'Dados encontrados com sucesso.';
-            $responseData['data'] = $output;
+                        foreach($result['data'] as $row) {
+
+                            $id = $row['id'];
+                            $descricao = $row['descricao'];
+                            $capacidade = $row['capacidade'];
+                            $unidade = $row['unidade'];
+                            $observacoes = $row['observacoes'];
+                            $categoria = $row['categoria'];
+                            
+                            $output .= '
+                            <tr style="text-align:center">
+                                <td>'.$id.'</td>                        
+                                <td>'.$descricao.'</td>				
+                                <td>'.$capacidade.'</td>				
+                                <td>'.$unidade.'</td>				
+                                <td>'.$observacoes.'</td>				
+                                <td>'.$categoria.'</td>				
+                                <td>
+                                    <form action="cadAcomodacoes.php" method="post">
+                                        <input type="hidden" name="id_acomodacao" value="'.$id.'">
+                                        <input type="hidden" name="action" value="update_acomodacoes">
+                                        <input type="submit" class="btn btn-primary edit" value="Editar" title="Editar esta acomodação">
+                                    </form>
+                                </td>
+                                <td><button name="delete" class="btn btn-danger delete" type=button data-id="'.$id.'" title="Deletar esta acomodação">Deletar</button></td>  
+                            </tr>
+                            ';
+                            $status = 'success';
+                            $message = 'Dados encontrados com sucesso.';
+    
+                        }
+
+                    }else {
+                        
+                        $output .= '
+                            <tr>
+                                <td colspan=8>Nenhum resultado de dados.</td>
+                            </tr>
+                        ';
+                        $status = 'noContent';
+                        $message = 'Nenhum resultado de dados.';
+
+                    }
+                break;
+                
+                case 'acomUnidades_select':
+                case 'acomCategoria_select':
+            
+                    if (count($result['data'])) {
+
+                        $count = 0;
+                        foreach($result['data'] as $row) {
+
+                            $id = $row['id'];
+                            $descricao = $row['descricao'];
+                            $selected = $count==0?'selected':'';
+                            $output .= '<option value="'. $id.'" '.$selected.'>'.$descricao.'</option>';
+                            $count++;
+                        }
+                        $status = 'success';
+                        $message = 'Dados encontrados com sucesso.';
+
+                    }else {
+                        
+                        $output .= '<option value="0">Nenhum resultado de dados</option>';
+                        $status = 'noContent';
+                        $message = 'Nenhum resultado de dados.';
+
+                    }
+                break;
+
+            }
 
         } else {
 
@@ -118,15 +194,17 @@ class DataController {
                     <td colspan=6>Nenhum resultado de dados.</td>
                 </tr>
             ';
+            $status = $result['status'];
+            $message = $result['message'];
 
-            $responseData['status'] = 'error';
-            $responseData['message'] = 'Nenhum dado encontrado ou ocorreu um erro ao buscar os dados.';
-            $responseData['data'] = $output;
-        
         }
         
+        $responseData['status'] = $status;
+        $responseData['message'] = $message;
+        $responseData['data'] = $output;
+
         return json_encode($responseData);
 
+    }
     
-    }    
 }

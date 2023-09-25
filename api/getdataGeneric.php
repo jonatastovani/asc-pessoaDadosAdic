@@ -10,7 +10,7 @@ require_once ( "../dao/dataBase.php" ) ;
 require_once ( "../models/PessoasCadastros.php" );
 require_once ( "../models/PessoasDadosAdic.php" );
 
-$data = new DataBase( $host, $user, $password, $dbname );
+$data = new DataBase();
 
 $PessoasCadastros = new PessoasCadastros();
 $PessoasDadosAdic = new PessoasDadosAdic();
@@ -19,10 +19,10 @@ switch ($_GET['action']) {
 
 	case 'get_header_pessoasCad':
 		
-		$id = $PessoasCadastros->setId($_GET['id']);
+		$idPessoa = $PessoasCadastros->setId($_GET['idPessoa']);
 		$res = $data->getHeaderPessoasCad($PessoasCadastros);
 		
-		break;
+	break;
 
 	case 'insert_pessoasDadosAdic':
 
@@ -65,7 +65,7 @@ switch ($_GET['action']) {
 	
 		$res = $data->insertPessoasDadosAdic( $PessoasDadosAdic );
 		
-		break;
+	break;
 
 	case 'update_pessoasDadosAdic':
 
@@ -110,25 +110,25 @@ switch ($_GET['action']) {
 	
 		$res = $data->alterPessoasDadosAdic( $PessoasDadosAdic );
 		
-		break;
+	break;
 
 	case 'pessoasDadosAdic_one':
-		$id_pessoaContEmerg = $PessoasDadosAdic->setIdPessoa($_GET["id"]);	
+		$idPessoa = $PessoasDadosAdic->setIdPessoa($_GET["idPessoa"]);	
 		$res = $data->PessoasDadosAdic_one( $PessoasDadosAdic );
 
-		break;
+	break;
 
 	case 'docPessoasDadosAdic_one':
 		$doc = $PessoasDadosAdic->setDoc(preg_replace('/\D/', '',$_GET["doc"]));	
 		$res = $data->docPessoasDadosAdic_one( $PessoasDadosAdic );
 	
-		break;
+	break;
 
 	case 'emailPessoasDadosAdic_one':
 		$email = $PessoasDadosAdic->setEmailPess(trim($_GET["email_pess"]));	
 		$res = $data->emailPessPessoasDadosAdic_one( $PessoasDadosAdic );
 	
-		break;
+	break;
 
 }
 

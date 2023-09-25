@@ -18,7 +18,7 @@ class saveController {
 		
 	}
 
-	public static function getOne( int $id, string $param, string $url_api ):string {		
+	public static function getOne( $key, string $param, string $url_api ):string {		
 
 		$url = $url_api.$param;	
 		
