@@ -5,7 +5,6 @@ $(document).ready(function(){
 
     if (typeof idpessoa === 'number' && idpessoa > 0) {
         getData('pessoasCadHeader', '?action=get_header_pessoasCad&idPessoa='+idpessoa);
-        getDataDados();
     } else {
         console.log('Não foi possível encontrar o cliente com o ID informado. Tente novamente mais tarde.');
         console.log('ID informado = '+idpessoa);
@@ -22,10 +21,17 @@ $(document).ready(function(){
             dataType: "json",
             success: function(response){
 
-                $('tbody').html(response.data);
+                console.log(response)
+                switch (response.status) {
+                    case 'success':
+                        $('#headerPessoa').html(response.data);
+                        getDataDados ();
+                    break;
                 
-                if (response.status === 'error') {
-                    console.log('Erro: ' + response.message);
+                    default:
+                        console.log('Erro: ' + response.message);
+                        $('#headerPessoa').html(`<p>${response.message}</p>`);
+                        blockForm();
                 }
 
             },
@@ -103,8 +109,10 @@ $(document).ready(function(){
                         break;
 
                     default:
+                        blockForm();
+
                         console.log('Erro: ' + response.message);
-                        alert("Houve um erro ao realizar o salvamento.");
+                        alert(response.message);
 
                 }
 
@@ -125,16 +133,12 @@ $(document).ready(function(){
             return alert(verifica);
         }
 
-        const camposDesabled = $(this).find('.grupoCEP');
-        camposDesabled.prop('disabled', false);
         var form1 = $(this).serialize();
-        camposDesabled.prop('disabled', true);
 
-        console.log(form1);
         $.ajax({
             url: "../api/savePessoasDadosAdic.php",
             method:"POST",
-            data:form1,
+            data: form1,
             dataType: 'json',
             success:function(response) {
 
@@ -142,7 +146,8 @@ $(document).ready(function(){
                     case 'success':
                     case 'conflict':
                         alert(response.message);
-                    
+                    break;
+
                     default: 
                         console.log('Erro: ' + response.message);
                         alert("Houve um erro ao realizar o salvamento.");
@@ -186,11 +191,11 @@ $(document).ready(function(){
                 key: 'email_pess',
                 value: $('#email_pess').val()
             }
-        }]
+        }]  
 
         arrConsultas.forEach(verif => {
             let response = verificaDadosDuplicados(verif.arrData);
-            console.log(response);
+
             switch (response.status) {
                 case 'success':
                     if (response.data.length>0) {
@@ -323,9 +328,12 @@ $(document).ready(function(){
         $('.clstelefone').trigger('blur');
     }
 
+    function blockForm() {
+        $('#form1 :input').prop('disabled', true);
+    }
+    
     function buscandoCEP (cep=null) {
         if (cep==null || cep.replace(/\D/g, '').length!=8){
-            habilitaCamposSeletor(true,'.grupoCEP');
             return;
         }
         
@@ -340,10 +348,8 @@ $(document).ready(function(){
             $('#end_cid').val(consulta.localidade);
             $('#end_est').val(consulta.uf);
 
-            habilitaCamposSeletor(false,'.grupoCEP');
             $(elementoFoco).focus();
         } else {
-            habilitaCamposSeletor(true,'.grupoCEP');
             $('#action').val()=='insert_pessoasDadosAdic'?$('#end_logr').focus():$('#tel1').focus();
         }
     }

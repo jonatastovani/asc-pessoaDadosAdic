@@ -10,19 +10,54 @@ class ApiResponse {
         $this->message = $message;
         $this->data = $data;
     }
+
+    /**
+     * Retorna o status da resposta.
+     *
+     * @return string O status da resposta (texto).
+     */
+    public function getStatus () : string {
+        return $this->status;
+    }
+
+    /**
+     * Retorna a mensagem da resposta.
+     *
+     * @return string A mensagem da resposta (texto).
+     */
+    public function getMessage () : string {
+        return $this->message;
+    }
+
+    /**
+     * Retorna os dados da resposta.
+     *
+     * @return mixed Os dados da resposta (pode ser de qualquer tipo).
+     */
+    public function getData () {
+        return $this->data;
+    }
+
 }
 
 class ConexaoMySQL {
-    private $host = 'localhost'; // Host do banco de dados MySQL
-    private $dbname = 'ascclub'; // Nome do banco de dados
-    private $usuario = 'jonatas'; // Nome de usuário do MySQL
-    private $senha = 'jon123'; // Senha do MySQL
+    private $host;
+    private $dbname;
+    private $user;
+    private $password;
     private $conexao;
+
+    public function __construct($host, $user, $password, $dbname) {
+        $this->host = $host;
+        $this->dbname = $dbname;
+        $this->user = $user;
+        $this->password = $password;
+    }
 
     public function conectar() {
         try {
             // Configurar a string de conexão para MySQL
-            $this->conexao = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->usuario, $this->senha);
+            $this->conexao = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->user, $this->password);
 
             // Configurar o modo de erro do PDO para exceções
             $this->conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

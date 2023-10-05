@@ -1,5 +1,5 @@
 <?php
-	$_POST['id_pessoaDadosAdic'] = 1;
+	$_POST['id_pessoaDadosAdic'] = 3;
 	$idpessoa = isset($_POST['id_pessoaDadosAdic'])?$_POST['id_pessoaDadosAdic']:0;
 ?>
 <!DOCTYPE html>
@@ -56,7 +56,7 @@
 						<div class="row mb-3">
 							<div class="col-md-2">
 								<label for="end_num" class="form-label"><b>Número:</b></label>
-								<input type="text" class="form-control" name="end_num" id="end_num" maxlength="6" value="12345" required>
+								<input type="text" class="form-control" name="end_num" id="end_num" maxlength="6" required>
 							</div>
 							<div class="col-md-5">
 								<label for="end_ref" class="form-label">Referência:</label>
@@ -116,7 +116,7 @@
 					</div>
 					<div class="col-lg-3">
 						<label for="doc" class="form-label"><b><span id="lbldoc">CPF:</span></b></label>
-						<input type="text" class="form-control" name="doc" id="doc" value="123456789123456789" required>
+						<input type="text" class="form-control" name="doc" id="doc" required>
 					</div>
 					<div class="col-lg-2">
 						<label for="rg" class="form-label">RG:</label>
@@ -146,7 +146,7 @@
 					</div>
 					<div class="col-lg-2">
 						<label for="data_nasc" class="form-label"><b>Data de Nascimento:</b></label>
-						<input type="date" class="form-control" name="data_nasc" id="data_nasc" value="1995-03-22" required>
+						<input type="date" class="form-control" name="data_nasc" id="data_nasc" required>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -164,7 +164,7 @@
 					</div>
 					<div class="col-lg-2">
 						<label for="sexo" class="form-label"><b>Sexo(M/F):</b></label>
-						<input type="text" class="form-control" name="sexo" id="sexo" maxlength="1" value="M" required>
+						<input type="text" class="form-control" name="sexo" id="sexo" maxlength="1" required>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -242,12 +242,10 @@
 
 		</div>
 
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 		<script src="../js/jquery-3.6.0.min.js.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-		<!-- <script src="../js/jquery.mask.min.js"></script> -->
 
 		
 		<?php include_once ("popupPhotos.php"); ?>

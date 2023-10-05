@@ -4,7 +4,7 @@ function buscarCEP(cep) {
     const url = `https://viacep.com.br/ws/${cep}/json/`;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, false);
+    xhr.open('GET', url);
     xhr.send();
 
     if (xhr.status === 200) {

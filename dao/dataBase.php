@@ -7,8 +7,12 @@ class dataBase {
 	
 	private $database;
 
-	public function __construct() {
-		$this->database = new ConexaoMySQL;
+	public function __construct( 	string $host, 
+									string $user, 
+									string $password, 
+									string $dbname ) {
+
+		$this->database = new ConexaoMySQL($host, $user, $password, $dbname);
 	}	
 	
 	public function getUnicoCadastroByPessoasDadosAdic(int $id=null, int $idpessoa, string $doc, string $email):ApiResponse {
@@ -19,7 +23,7 @@ class dataBase {
             if ($conexao instanceof PDO) {
 				
 				$params = array($idpessoa, $doc, $email);
-
+				
 				$and_id = null;
 				if ($id!=null) {
 					if ($id) {
@@ -28,11 +32,11 @@ class dataBase {
 					}
 				}
 				
-				$query = 	"SELECT id FROM pessoa_dados_pessoais
+				$query = 	"SELECT * FROM pessoa_dados_pessoais
 							WHERE (id_pessoa = ? OR doc= ? OR email_pess = ?) $and_id;";
 
                 $stmt = $conexao->prepare($query);
-				$stmt->execute();
+				$stmt->execute($params);
 
                 if ($stmt) {
                     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -63,9 +67,9 @@ class dataBase {
 
 				$consulta = $this->getUnicoCadastroByPessoasDadosAdic(null,$PessoasDadosAdic->getIdPessoa(),$PessoasDadosAdic->getDoc(),$PessoasDadosAdic->getEmailPess());
 
-				if ($consulta['status'] == 'success') {
+				if ($consulta->getStatus() == 'success') {
 
-					if (count($consulta['data']) == 0) {
+					if (count($consulta->getData()) == 0) {
 						
 						$DT = new DateTime();
 
@@ -156,9 +160,9 @@ class dataBase {
 
 				$consulta = $this->getUnicoCadastroByPessoasDadosAdic($PessoasDadosAdic->getId(),$PessoasDadosAdic->getIdPessoa(),$PessoasDadosAdic->getDoc(),$PessoasDadosAdic->getEmailPess());
 
-				if ($consulta['status'] == 'success') {
+				if ($consulta->getStatus() == 'success') {
 
-					if (count($consulta['data']) == 0) {
+					if (count($consulta->getData()) == 0) {
 						
 						$DT = new DateTime();
 

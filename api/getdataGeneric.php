@@ -10,7 +10,7 @@ require_once ( "../dao/dataBase.php" ) ;
 require_once ( "../models/PessoasCadastros.php" );
 require_once ( "../models/PessoasDadosAdic.php" );
 
-$data = new DataBase();
+$data = new DataBase($host, $user, $password, $dbname);
 
 $PessoasCadastros = new PessoasCadastros();
 $PessoasDadosAdic = new PessoasDadosAdic();
@@ -129,7 +129,7 @@ switch ($_GET['action']) {
 		$res = $data->emailPessPessoasDadosAdic_one( $PessoasDadosAdic );
 	
 	break;
-
+	
 }
 
 echo json_encode($res);

@@ -108,94 +108,16 @@ class DataController {
                         $message = 'Nenhum resultado de dados.';
         
                     }
-                break;
 
-                case 'acomodacoes':
-            
-                    if (count($result['data'])) {
-
-                        foreach($result['data'] as $row) {
-
-                            $id = $row['id'];
-                            $descricao = $row['descricao'];
-                            $capacidade = $row['capacidade'];
-                            $unidade = $row['unidade'];
-                            $observacoes = $row['observacoes'];
-                            $categoria = $row['categoria'];
-                            
-                            $output .= '
-                            <tr style="text-align:center">
-                                <td>'.$id.'</td>                        
-                                <td>'.$descricao.'</td>				
-                                <td>'.$capacidade.'</td>				
-                                <td>'.$unidade.'</td>				
-                                <td>'.$observacoes.'</td>				
-                                <td>'.$categoria.'</td>				
-                                <td>
-                                    <form action="cadAcomodacoes.php" method="post">
-                                        <input type="hidden" name="id_acomodacao" value="'.$id.'">
-                                        <input type="hidden" name="action" value="update_acomodacoes">
-                                        <input type="submit" class="btn btn-primary edit" value="Editar" title="Editar esta acomodação">
-                                    </form>
-                                </td>
-                                <td><button name="delete" class="btn btn-danger delete" type=button data-id="'.$id.'" title="Deletar esta acomodação">Deletar</button></td>  
-                            </tr>
-                            ';
-                            $status = 'success';
-                            $message = 'Dados encontrados com sucesso.';
-    
-                        }
-
-                    }else {
-                        
-                        $output .= '
-                            <tr>
-                                <td colspan=8>Nenhum resultado de dados.</td>
-                            </tr>
-                        ';
-                        $status = 'noContent';
-                        $message = 'Nenhum resultado de dados.';
-
-                    }
-                break;
-                
-                case 'acomUnidades_select':
-                case 'acomCategoria_select':
-            
-                    if (count($result['data'])) {
-
-                        $count = 0;
-                        foreach($result['data'] as $row) {
-
-                            $id = $row['id'];
-                            $descricao = $row['descricao'];
-                            $selected = $count==0?'selected':'';
-                            $output .= '<option value="'. $id.'" '.$selected.'>'.$descricao.'</option>';
-                            $count++;
-                        }
-                        $status = 'success';
-                        $message = 'Dados encontrados com sucesso.';
-
-                    }else {
-                        
-                        $output .= '<option value="0">Nenhum resultado de dados</option>';
-                        $status = 'noContent';
-                        $message = 'Nenhum resultado de dados.';
-
-                    }
                 break;
 
             }
 
         } else {
 
-            $output .= '
-                <tr>
-                    <td colspan=6>Nenhum resultado de dados.</td>
-                </tr>
-            ';
             $status = $result['status'];
             $message = $result['message'];
+            $output .= 'Ocorreu um erro ao buscar os dados.';
 
         }
         
